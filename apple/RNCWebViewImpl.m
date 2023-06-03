@@ -5,7 +5,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-#import "RNCWebViewImpl.h"
+#import "RNCCarefreesWebViewImpl.h"
 #import <React/RCTConvert.h>
 #import <React/RCTAutoInsetsProtocol.h>
 #import "RNCWKProcessPoolManager.h"
@@ -53,9 +53,9 @@ NSString *const CUSTOM_SELECTOR = @"_CUSTOM_SELECTOR_";
 @end
 @implementation RNCWKWebView
 - (void)scrollWheel:(NSEvent *)theEvent {
-  RNCWebViewImpl *rncWebView = (RNCWebViewImpl *)[self superview];
-  RCTAssert([rncWebView isKindOfClass:[rncWebView class]], @"superview must be an RNCWebViewImpl");
-  if (![rncWebView scrollEnabled]) {
+  RNCCarefreesWebViewImpl *RNCCarefreesWebView = (RNCCarefreesWebViewImpl *)[self superview];
+  RCTAssert([RNCCarefreesWebView isKindOfClass:[RNCCarefreesWebView class]], @"superview must be an RNCCarefreesWebViewImpl");
+  if (![RNCCarefreesWebView scrollEnabled]) {
     [[self nextResponder] scrollWheel:theEvent];
     return;
   }
@@ -64,7 +64,7 @@ NSString *const CUSTOM_SELECTOR = @"_CUSTOM_SELECTOR_";
 @end
 #endif // TARGET_OS_OSX
 
-@interface RNCWebViewImpl () <WKUIDelegate, WKNavigationDelegate, WKScriptMessageHandler, WKHTTPCookieStoreObserver,
+@interface RNCCarefreesWebViewImpl () <WKUIDelegate, WKNavigationDelegate, WKScriptMessageHandler, WKHTTPCookieStoreObserver,
 #if !TARGET_OS_OSX
 UIScrollViewDelegate,
 #endif // !TARGET_OS_OSX
@@ -80,7 +80,7 @@ RCTAutoInsetsProtocol>
 @property (nonatomic, strong) WKUserScript *atEndScript;
 @end
 
-@implementation RNCWebViewImpl
+@implementation RNCCarefreesWebViewImpl
 {
 #if !TARGET_OS_OSX
   UIColor * _savedBackgroundColor;
@@ -140,7 +140,7 @@ RCTAutoInsetsProtocol>
 #endif
     _enableApplePay = NO;
 #if defined(__IPHONE_OS_VERSION_MAX_ALLOWED) && __IPHONE_OS_VERSION_MAX_ALLOWED >= 150000 /* iOS 15 */
-    _mediaCapturePermissionGrantType = RNCWebViewPermissionGrantType_Prompt;
+    _mediaCapturePermissionGrantType = RNCCarefreesWebViewPermissionGrantType_Prompt;
 #endif
   }
 
@@ -934,7 +934,7 @@ RCTAutoInsetsProtocol>
 {
   [super layoutSubviews];
 
-  // Ensure webview takes the position and dimensions of RNCWebViewImpl
+  // Ensure webview takes the position and dimensions of RNCCarefreesWebViewImpl
   _webView.frame = self.bounds;
 #if !TARGET_OS_OSX
   _webView.scrollView.contentInset = _contentInset;
@@ -1106,16 +1106,16 @@ RCTAutoInsetsProtocol>
                         initiatedByFrame:(WKFrameInfo *)frame
                                     type:(WKMediaCaptureType)type
                          decisionHandler:(void (^)(WKPermissionDecision decision))decisionHandler {
-  if (_mediaCapturePermissionGrantType == RNCWebViewPermissionGrantType_GrantIfSameHost_ElsePrompt || _mediaCapturePermissionGrantType == RNCWebViewPermissionGrantType_GrantIfSameHost_ElseDeny) {
+  if (_mediaCapturePermissionGrantType == RNCCarefreesWebViewPermissionGrantType_GrantIfSameHost_ElsePrompt || _mediaCapturePermissionGrantType == RNCCarefreesWebViewPermissionGrantType_GrantIfSameHost_ElseDeny) {
     if ([origin.host isEqualToString:webView.URL.host]) {
       decisionHandler(WKPermissionDecisionGrant);
     } else {
-      WKPermissionDecision decision = _mediaCapturePermissionGrantType == RNCWebViewPermissionGrantType_GrantIfSameHost_ElsePrompt ? WKPermissionDecisionPrompt : WKPermissionDecisionDeny;
+      WKPermissionDecision decision = _mediaCapturePermissionGrantType == RNCCarefreesWebViewPermissionGrantType_GrantIfSameHost_ElsePrompt ? WKPermissionDecisionPrompt : WKPermissionDecisionDeny;
       decisionHandler(decision);
     }
-  } else if (_mediaCapturePermissionGrantType == RNCWebViewPermissionGrantType_Deny) {
+  } else if (_mediaCapturePermissionGrantType == RNCCarefreesWebViewPermissionGrantType_Deny) {
     decisionHandler(WKPermissionDecisionDeny);
-  } else if (_mediaCapturePermissionGrantType == RNCWebViewPermissionGrantType_Grant) {
+  } else if (_mediaCapturePermissionGrantType == RNCCarefreesWebViewPermissionGrantType_Grant) {
     decisionHandler(WKPermissionDecisionGrant);
   } else {
     decisionHandler(WKPermissionDecisionPrompt);
@@ -1161,7 +1161,7 @@ RCTAutoInsetsProtocol>
 
     if (_onShouldStartLoadWithRequest) {
         NSMutableDictionary<NSString *, id> *event = [self baseEvent];
-        int lockIdentifier = [[RNCWebViewDecisionManager getInstance] setDecisionHandler: ^(BOOL shouldStart){
+        int lockIdentifier = [[RNCCarefreesWebViewDecisionManager getInstance] setDecisionHandler: ^(BOOL shouldStart){
             dispatch_async(dispatch_get_main_queue(), ^{
                 if (!shouldStart) {
                     decisionHandler(WKNavigationActionPolicyCancel);

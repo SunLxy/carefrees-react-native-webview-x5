@@ -84,7 +84,7 @@ $ react-native start --reset-cache
 
 You may also see a console warning about "Invalid hook call," followed by a render error that "null is not an object (evaluating 'dispatcher.useRef')." Resolving this is similar to the above, but this time remove `react-native-webview/node_modules/react`.
 
-(if you remove `react` before `react-native`, you may see another render error for "View config getter callback for component 'RNCWebView' must be a function," just remove `react-native` as well to fix this)
+(if you remove `react` before `react-native`, you may see another render error for "View config getter callback for component 'RNCCarefreesWebView' must be a function," just remove `react-native` as well to fix this)
 
 When you make a change, you'll probably need to remove and re-add `react-native-webview`:
 

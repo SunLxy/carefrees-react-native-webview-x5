@@ -4,19 +4,19 @@
 #import <React/RCTConversions.h>
 #import <WebKit/WKDataDetectorTypes.h>
 #import <UIKit/UIKit.h>
-#import <react/renderer/components/RNCWebViewSpec/Props.h>
+#import <react/renderer/components/RNCCarefreesWebViewSpec/Props.h>
 
 #ifndef NativeComponentExampleComponentView_h
 #define NativeComponentExampleComponentView_h
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface RNCWebView : RCTViewComponentView
+@interface RNCCarefreesWebView : RCTViewComponentView
 @end
 
 namespace facebook {
 namespace react {
-    bool operator==(const RNCWebViewMenuItemsStruct& a, const RNCWebViewMenuItemsStruct& b)
+    bool operator==(const RNCCarefreesWebViewMenuItemsStruct& a, const RNCCarefreesWebViewMenuItemsStruct& b)
     {
         return b.key == a.key && b.label == a.label;
     }

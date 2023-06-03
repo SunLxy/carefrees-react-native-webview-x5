@@ -2,7 +2,7 @@
 
 Embora a visualização da Web integrada tenha muitos recursos, não é possível lidar com todos os casos de uso no React Native. Você pode, no entanto, estender a visualização da web com código nativo sem bifurcar o React Native ou duplicar todo o código de visualização da web existente.
 
-Antes de fazer isso, você deve estar familiarizado com os conceitos em [componentes nativos da interface do usuário](native-components-ios). Você também deve se familiarizar com o [código nativo para visualizações da web](https://github.com/react-native-webview/react-native-webview/blob/master/apple/RNCWebViewManager.m), pois você terá para usar isso como referência ao implementar novos recursos, embora não seja necessário um entendimento profundo.
+Antes de fazer isso, você deve estar familiarizado com os conceitos em [componentes nativos da interface do usuário](native-components-ios). Você também deve se familiarizar com o [código nativo para visualizações da web](https://github.com/react-native-webview/react-native-webview/blob/master/apple/RNCCarefreesWebViewManager.m), pois você terá para usar isso como referência ao implementar novos recursos, embora não seja necessário um entendimento profundo.
 
 ## Código Nativo
 
@@ -137,7 +137,7 @@ Depois que eles forem expostos, você poderá referenciá-los em sua classe de v
 Se você abrir páginas da Web que precisam de um Certificado de Cliente para Autenticação, poderá criar uma credencial e passá-la para a visualização da Web:
 
 ```
-[RNCWebView setClientAuthenticationCredential:credential];
+[RNCCarefreesWebView setClientAuthenticationCredential:credential];
 ```
 
 Isso pode ser combinado com uma chamada do Javascript para passar um rótulo de texto para o certificado armazenado no chaveiro e usar chamadas nativas para buscar o certificado e criar um objeto de credencial. Essa chamada pode ser feita em qualquer lugar que faça sentido para seu aplicativo (por exemplo, como parte da pilha de autenticação do usuário). O único requisito é fazer essa chamada antes de exibir qualquer webview.
@@ -163,7 +163,7 @@ Se você precisa se conectar a um servidor que possui um certificado autoassinad
   
   [certMap setObject:(__bridge id _Nonnull)(certificate) forKey:@"example.com"];
 
-  [RNCWebView setCustomCertificatesForHost:certMap];
+  [RNCCarefreesWebView setCustomCertificatesForHost:certMap];
 }
 
 ```

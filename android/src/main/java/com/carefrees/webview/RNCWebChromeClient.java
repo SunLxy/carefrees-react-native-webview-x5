@@ -48,7 +48,7 @@ public class RNCWebChromeClient extends WebChromeClient implements LifecycleEven
 
     protected static final int COMMON_PERMISSION_REQUEST = 3;
 
-    protected RNCWebView mWebView;
+    protected RNCCarefreesWebView mWebView;
 
     protected View mVideoView;
     protected WebChromeClient.CustomViewCallback mCustomViewCallback;
@@ -74,10 +74,10 @@ public class RNCWebChromeClient extends WebChromeClient implements LifecycleEven
     // Pending Android permissions for the next request
     protected List<String> pendingPermissions = new ArrayList<>();
 
-    protected RNCWebView.ProgressChangedFilter progressChangedFilter = null;
+    protected RNCCarefreesWebView.ProgressChangedFilter progressChangedFilter = null;
     protected boolean mAllowsProtectedMedia = false;
 
-    public RNCWebChromeClient(RNCWebView webView) {
+    public RNCWebChromeClient(RNCCarefreesWebView webView) {
         this.mWebView = webView;
     }
 
@@ -295,15 +295,15 @@ public class RNCWebChromeClient extends WebChromeClient implements LifecycleEven
     };
 
     protected void openFileChooser(ValueCallback<Uri> filePathCallback, String acceptType) {
-      this.mWebView.getThemedReactContext().getNativeModule(RNCWebViewModule.class).startPhotoPickerIntent(filePathCallback, acceptType);
+      this.mWebView.getThemedReactContext().getNativeModule(RNCCarefreesWebViewModule.class).startPhotoPickerIntent(filePathCallback, acceptType);
     }
 
     protected void openFileChooser(ValueCallback<Uri> filePathCallback) {
-      this.mWebView.getThemedReactContext().getNativeModule(RNCWebViewModule.class).startPhotoPickerIntent(filePathCallback, "");
+      this.mWebView.getThemedReactContext().getNativeModule(RNCCarefreesWebViewModule.class).startPhotoPickerIntent(filePathCallback, "");
     }
 
     protected void openFileChooser(ValueCallback<Uri> filePathCallback, String acceptType, String capture) {
-      this.mWebView.getThemedReactContext().getNativeModule(RNCWebViewModule.class).startPhotoPickerIntent(filePathCallback, acceptType);
+      this.mWebView.getThemedReactContext().getNativeModule(RNCCarefreesWebViewModule.class).startPhotoPickerIntent(filePathCallback, acceptType);
     }
 
     @Override
@@ -311,7 +311,7 @@ public class RNCWebChromeClient extends WebChromeClient implements LifecycleEven
         String[] acceptTypes = fileChooserParams.getAcceptTypes();
         boolean allowMultiple = fileChooserParams.getMode() == WebChromeClient.FileChooserParams.MODE_OPEN_MULTIPLE;
 
-        return this.mWebView.getThemedReactContext().getNativeModule(RNCWebViewModule.class).startPhotoPickerIntent(filePathCallback, acceptTypes, allowMultiple);
+        return this.mWebView.getThemedReactContext().getNativeModule(RNCCarefreesWebViewModule.class).startPhotoPickerIntent(filePathCallback, acceptTypes, allowMultiple);
     }
 
     @Override
@@ -331,7 +331,7 @@ public class RNCWebChromeClient extends WebChromeClient implements LifecycleEven
         return this.mWebView.getThemedReactContext().getCurrentActivity().findViewById(android.R.id.content);
     }
 
-    public void setProgressChangedFilter(RNCWebView.ProgressChangedFilter filter) {
+    public void setProgressChangedFilter(RNCCarefreesWebView.ProgressChangedFilter filter) {
         progressChangedFilter = filter;
     }
 

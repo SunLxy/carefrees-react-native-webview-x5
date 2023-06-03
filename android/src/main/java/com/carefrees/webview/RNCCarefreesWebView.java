@@ -37,7 +37,7 @@ import com.carefrees.webview.events.TopMessageEvent;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
-public class RNCWebView extends WebView implements LifecycleEventListener {
+public class RNCCarefreesWebView extends WebView implements LifecycleEventListener {
     protected @Nullable
     String injectedJS;
     protected @Nullable
@@ -55,7 +55,7 @@ public class RNCWebView extends WebView implements LifecycleEventListener {
     protected @Nullable
     String messagingModuleName;
     protected @Nullable
-    RNCWebViewClient mRNCWebViewClient;
+    RNCCarefreesWebViewClient mRNCCarefreesWebViewClient;
     protected @Nullable
     CatalystInstance mCatalystInstance;
     protected boolean sendContentSizeChangeEvents = false;
@@ -70,18 +70,18 @@ public class RNCWebView extends WebView implements LifecycleEventListener {
      * Activity Context is required for creation of dialogs internally by WebView
      * Reactive Native needed for access to ReactNative internal system functionality
      */
-    public RNCWebView(ThemedReactContext reactContext) {
+    public RNCCarefreesWebView(ThemedReactContext reactContext) {
         super(reactContext);
         this.createCatalystInstance();
         progressChangedFilter = new ProgressChangedFilter();
     }
 
     public void setIgnoreErrFailedForThisURL(String url) {
-        mRNCWebViewClient.setIgnoreErrFailedForThisURL(url);
+        mRNCCarefreesWebViewClient.setIgnoreErrFailedForThisURL(url);
     }
 
     public void setBasicAuthCredential(RNCBasicAuthCredential credential) {
-        mRNCWebViewClient.setBasicAuthCredential(credential);
+        mRNCCarefreesWebViewClient.setBasicAuthCredential(credential);
     }
 
     public void setSendContentSizeChangeEvents(boolean sendContentSizeChangeEvents) {
@@ -138,9 +138,9 @@ public class RNCWebView extends WebView implements LifecycleEventListener {
     @Override
     public void setWebViewClient(WebViewClient client) {
         super.setWebViewClient(client);
-        if (client instanceof RNCWebViewClient) {
-            mRNCWebViewClient = (RNCWebViewClient) client;
-            mRNCWebViewClient.setProgressChangedFilter(progressChangedFilter);
+        if (client instanceof RNCCarefreesWebViewClient) {
+            mRNCCarefreesWebViewClient = (RNCCarefreesWebViewClient) client;
+            mRNCCarefreesWebViewClient.setProgressChangedFilter(progressChangedFilter);
         }
     }
 
@@ -159,12 +159,12 @@ public class RNCWebView extends WebView implements LifecycleEventListener {
     }
 
     public @Nullable
-    RNCWebViewClient getRNCWebViewClient() {
-        return mRNCWebViewClient;
+    RNCCarefreesWebViewClient getRNCCarefreesWebViewClient() {
+        return mRNCCarefreesWebViewClient;
     }
 
-    protected RNCWebViewBridge createRNCWebViewBridge(RNCWebView webView) {
-        return new RNCWebViewBridge(webView);
+    protected RNCCarefreesWebViewBridge createRNCCarefreesWebViewBridge(RNCCarefreesWebView webView) {
+        return new RNCCarefreesWebViewBridge(webView);
     }
 
     protected void createCatalystInstance() {
@@ -184,7 +184,7 @@ public class RNCWebView extends WebView implements LifecycleEventListener {
         messagingEnabled = enabled;
 
         if (enabled) {
-            addJavascriptInterface(createRNCWebViewBridge(this), JAVASCRIPT_INTERFACE);
+            addJavascriptInterface(createRNCCarefreesWebViewBridge(this), JAVASCRIPT_INTERFACE);
         } else {
             removeJavascriptInterface(JAVASCRIPT_INTERFACE);
         }
@@ -212,17 +212,17 @@ public class RNCWebView extends WebView implements LifecycleEventListener {
 
     public void onMessage(String message) {
         ThemedReactContext reactContext = getThemedReactContext();
-        RNCWebView mWebView = this;
+        RNCCarefreesWebView mWebView = this;
 
-        if (mRNCWebViewClient != null) {
+        if (mRNCCarefreesWebViewClient != null) {
             WebView webView = this;
             webView.post(new Runnable() {
                 @Override
                 public void run() {
-                    if (mRNCWebViewClient == null) {
+                    if (mRNCCarefreesWebViewClient == null) {
                         return;
                     }
-                    WritableMap data = mRNCWebViewClient.createWebViewEvent(webView, webView.getUrl());
+                    WritableMap data = mRNCCarefreesWebViewClient.createWebViewEvent(webView, webView.getUrl());
                     data.putString("data", message);
 
                     if (mCatalystInstance != null) {
@@ -305,10 +305,10 @@ public class RNCWebView extends WebView implements LifecycleEventListener {
     return (ThemedReactContext) this.getContext();
   }
 
-  protected class RNCWebViewBridge {
-        RNCWebView mWebView;
+  protected class RNCCarefreesWebViewBridge {
+        RNCCarefreesWebView mWebView;
 
-        RNCWebViewBridge(RNCWebView c) {
+        RNCCarefreesWebViewBridge(RNCCarefreesWebView c) {
           mWebView = c;
         }
 

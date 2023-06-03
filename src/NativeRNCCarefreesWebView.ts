@@ -1,7 +1,7 @@
 /* eslint-disable import/no-duplicates */
 import type { TurboModule } from 'react-native';
 import { TurboModuleRegistry } from 'react-native';
-import {Int32} from 'react-native/Libraries/Types/CodegenTypes';
+import { Int32 } from 'react-native/Libraries/Types/CodegenTypes';
 
 export interface Spec extends TurboModule {
   readonly getConstants: () => {};
@@ -11,4 +11,4 @@ export interface Spec extends TurboModule {
   shouldStartLoadWithLockIdentifier(shouldStart: boolean, lockIdentifier: Int32): void;
 }
 
-export default TurboModuleRegistry.getEnforcing<Spec>('RNCWebView');
+export default TurboModuleRegistry.getEnforcing<Spec>('RNCCarefreesWebView');

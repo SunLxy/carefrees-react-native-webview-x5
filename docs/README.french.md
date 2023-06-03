@@ -62,7 +62,7 @@ Pour plus de détails, lisez la [Référence API](./docs/Reference.md) et le [Gu
 
 ## Problèmes communs
 
-- Si l'erreur `Invariant Violation: Native component for "RNCWebView does not exist"` intervient, cela signifie probablement que vous avez oublié d'executer `react-native link` ou qu'une erreur est intervenue durant le processus de liaison.
+- Si l'erreur `Invariant Violation: Native component for "RNCCarefreesWebView does not exist"` intervient, cela signifie probablement que vous avez oublié d'executer `react-native link` ou qu'une erreur est intervenue durant le processus de liaison.
 - Si vous rencontrer une erreur de build durant l'execution de la tâche `:app:mergeDexRelease`, vous devez activer le support du multidex dans `android/app/build.gradle` comme discuté [ici](https://github.com/react-native-webview/react-native-webview/issues/1344#issuecomment-650544648)
 
 ## Contribuer

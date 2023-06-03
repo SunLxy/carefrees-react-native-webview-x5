@@ -32,13 +32,13 @@ import java.util.*
 val invalidCharRegex = "[\\\\/%\"]".toRegex()
 
 
-class RNCWebViewManagerImpl {
+class RNCCarefreesWebViewManagerImpl {
     companion object {
-        const val NAME = "RNCWebView"
+        const val NAME = "RNCCarefreesWebView"
     }
 
-    private val TAG = "RNCWebViewManagerImpl"
-    private var mWebViewConfig: RNCWebViewConfig = RNCWebViewConfig { webView: WebView? -> }
+    private val TAG = "RNCCarefreesWebViewManagerImpl"
+    private var mWebViewConfig: RNCCarefreesWebViewConfig = RNCCarefreesWebViewConfig { webView: WebView? -> }
     private var mAllowsFullscreenVideo = false
     private var mAllowsProtectedMedia = false
     private var mDownloadingMessage: String? = null
@@ -58,16 +58,16 @@ class RNCWebViewManagerImpl {
     private val DEFAULT_LACK_PERMISSION_TO_DOWNLOAD_MESSAGE =
         "Cannot download files as permission was denied. Please provide permission to write to storage, in order to download files."
 
-    fun createRNCWebViewInstance(context: ThemedReactContext): RNCWebView {
-        return RNCWebView(context)
+    fun createRNCCarefreesWebViewInstance(context: ThemedReactContext): RNCCarefreesWebView {
+        return RNCCarefreesWebView(context)
     }
 
-    fun createViewInstance(context: ThemedReactContext): RNCWebView {
-      val webView = createRNCWebViewInstance(context)
+    fun createViewInstance(context: ThemedReactContext): RNCCarefreesWebView {
+      val webView = createRNCCarefreesWebViewInstance(context)
       return createViewInstance(context, webView);
     }
 
-    fun createViewInstance(context: ThemedReactContext, webView: RNCWebView): RNCWebView {
+    fun createViewInstance(context: ThemedReactContext, webView: RNCCarefreesWebView): RNCCarefreesWebView {
         setupWebChromeClient(webView)
         context.addLifecycleEventListener(webView)
         mWebViewConfig.configWebView(webView)
@@ -92,7 +92,7 @@ class RNCWebViewManagerImpl {
         }
         webView.setDownloadListener(DownloadListener { url, userAgent, contentDisposition, mimetype, contentLength ->
             webView.setIgnoreErrFailedForThisURL(url)
-            val module = webView.themedReactContext.getNativeModule(RNCWebViewModule::class.java) ?: return@DownloadListener
+            val module = webView.themedReactContext.getNativeModule(RNCCarefreesWebViewModule::class.java) ?: return@DownloadListener
             val request: DownloadManager.Request = try {
                 DownloadManager.Request(Uri.parse(url))
             } catch (e: IllegalArgumentException) {
@@ -139,7 +139,7 @@ class RNCWebViewManagerImpl {
     }
 
     private fun setupWebChromeClient(
-        webView: RNCWebView,
+        webView: RNCCarefreesWebView,
     ) {
         val activity = webView.themedReactContext.currentActivity
         if (mAllowsFullscreenVideo && activity != null) {
@@ -262,10 +262,10 @@ class RNCWebViewManagerImpl {
                 basicAuthCredential = RNCBasicAuthCredential(username, password)
             }
         }
-        (view as RNCWebView).setBasicAuthCredential(basicAuthCredential)
+        (view as RNCCarefreesWebView).setBasicAuthCredential(basicAuthCredential)
     }
 
-    fun onDropViewInstance(webView: RNCWebView) {
+    fun onDropViewInstance(webView: RNCCarefreesWebView) {
         webView.themedReactContext.removeLifecycleEventListener(webView)
         webView.cleanupCallbacksAndDestroy()
         webView.mWebChromeClient = null
@@ -301,7 +301,7 @@ class RNCWebViewManagerImpl {
         .build()
     }
 
-    fun receiveCommand(webView: RNCWebView, commandId: String, args: ReadableArray) {
+    fun receiveCommand(webView: RNCCarefreesWebView, commandId: String, args: ReadableArray) {
       when (commandId) {
         "goBack" -> webView.goBack()
         "goForward" -> webView.goForward()
@@ -367,7 +367,7 @@ class RNCWebViewManagerImpl {
             ?: DEFAULT_LACK_PERMISSION_TO_DOWNLOAD_MESSAGE
     }
 
-    fun setSource(view: RNCWebView, source: ReadableMap?, newArch: Boolean = true) {
+    fun setSource(view: RNCCarefreesWebView, source: ReadableMap?, newArch: Boolean = true) {
         if (source != null) {
             if (source.hasKey("html")) {
                 val html = source.getString("html")
@@ -440,15 +440,15 @@ class RNCWebViewManagerImpl {
         view.loadUrl(BLANK_URL)
     }
 
-    fun setMessagingModuleName(view: RNCWebView, value: String?) {
+    fun setMessagingModuleName(view: RNCCarefreesWebView, value: String?) {
         view.messagingModuleName = value
     }
 
-    fun setCacheEnabled(view: RNCWebView, enabled: Boolean) {
+    fun setCacheEnabled(view: RNCCarefreesWebView, enabled: Boolean) {
       view.settings.cacheMode = if (enabled) WebSettings.LOAD_DEFAULT else WebSettings.LOAD_NO_CACHE
     }
 
-    fun setIncognito(view: RNCWebView, enabled: Boolean) {
+    fun setIncognito(view: RNCCarefreesWebView, enabled: Boolean) {
         // Don't do anything when incognito is disabled
         if (!enabled) {
             return;
@@ -468,64 +468,64 @@ class RNCWebViewManagerImpl {
         view.settings.saveFormData = false;
     }
 
-    fun setInjectedJavaScript(view: RNCWebView, injectedJavaScript: String?) {
+    fun setInjectedJavaScript(view: RNCCarefreesWebView, injectedJavaScript: String?) {
         view.injectedJS = injectedJavaScript
     }
 
-    fun setInjectedJavaScriptBeforeContentLoaded(view: RNCWebView, value: String?) {
+    fun setInjectedJavaScriptBeforeContentLoaded(view: RNCCarefreesWebView, value: String?) {
         view.injectedJSBeforeContentLoaded = value
     }
 
-    fun setInjectedJavaScriptForMainFrameOnly(view: RNCWebView, value: Boolean) {
+    fun setInjectedJavaScriptForMainFrameOnly(view: RNCCarefreesWebView, value: Boolean) {
         view.injectedJavaScriptForMainFrameOnly = value
     }
 
-    fun setInjectedJavaScriptBeforeContentLoadedForMainFrameOnly(view: RNCWebView, value: Boolean) {
+    fun setInjectedJavaScriptBeforeContentLoadedForMainFrameOnly(view: RNCCarefreesWebView, value: Boolean) {
         view.injectedJavaScriptBeforeContentLoadedForMainFrameOnly = value
     }
 
-    fun setJavaScriptCanOpenWindowsAutomatically(view: RNCWebView, value: Boolean) {
+    fun setJavaScriptCanOpenWindowsAutomatically(view: RNCCarefreesWebView, value: Boolean) {
         view.settings.javaScriptCanOpenWindowsAutomatically = value
     }
 
-    fun setShowsVerticalScrollIndicator(view: RNCWebView, value: Boolean) {
+    fun setShowsVerticalScrollIndicator(view: RNCCarefreesWebView, value: Boolean) {
         view.isVerticalScrollBarEnabled = value
     }
 
-    fun setShowsHorizontalScrollIndicator(view: RNCWebView, value: Boolean) {
+    fun setShowsHorizontalScrollIndicator(view: RNCCarefreesWebView, value: Boolean) {
         view.isHorizontalScrollBarEnabled = value
     }
 
-    fun setMessagingEnabled(view: RNCWebView, value: Boolean) {
+    fun setMessagingEnabled(view: RNCCarefreesWebView, value: Boolean) {
         view.setMessagingEnabled(value)
     }
 
-    fun setMediaPlaybackRequiresUserAction(view: RNCWebView, value: Boolean) {
+    fun setMediaPlaybackRequiresUserAction(view: RNCCarefreesWebView, value: Boolean) {
         view.settings.mediaPlaybackRequiresUserGesture = value
     }
 
-    fun setHasOnScroll(view: RNCWebView, value: Boolean) {
+    fun setHasOnScroll(view: RNCCarefreesWebView, value: Boolean) {
         view.setHasScrollEvent(value)
     }
 
-    fun setJavaScriptEnabled(view: RNCWebView, enabled: Boolean) {
+    fun setJavaScriptEnabled(view: RNCCarefreesWebView, enabled: Boolean) {
         view.settings.javaScriptEnabled = enabled
     }
 
-    fun setAllowFileAccess(view: RNCWebView, allowFileAccess: Boolean) {
+    fun setAllowFileAccess(view: RNCCarefreesWebView, allowFileAccess: Boolean) {
         view.settings.allowFileAccess = allowFileAccess;
     }
 
-    fun setAllowFileAccessFromFileURLs(view: RNCWebView, value: Boolean) {
+    fun setAllowFileAccessFromFileURLs(view: RNCCarefreesWebView, value: Boolean) {
         view.settings.allowFileAccessFromFileURLs = value;
     }
 
-    fun setAllowsFullscreenVideo(view: RNCWebView, value: Boolean) {
+    fun setAllowsFullscreenVideo(view: RNCCarefreesWebView, value: Boolean) {
         mAllowsFullscreenVideo = value
         setupWebChromeClient(view)
     }
 
-    fun setAndroidLayerType(view: RNCWebView, layerTypeString: String?) {
+    fun setAndroidLayerType(view: RNCCarefreesWebView, layerTypeString: String?) {
         val layerType = when (layerTypeString) {
             "hardware" -> View.LAYER_TYPE_HARDWARE
             "software" -> View.LAYER_TYPE_SOFTWARE
@@ -534,7 +534,7 @@ class RNCWebViewManagerImpl {
         view.setLayerType(layerType, null)
     }
 
-    fun setCacheMode(view: RNCWebView, cacheModeString: String?) {
+    fun setCacheMode(view: RNCCarefreesWebView, cacheModeString: String?) {
         view.settings.cacheMode = when (cacheModeString) {
             "LOAD_CACHE_ONLY" -> WebSettings.LOAD_CACHE_ONLY
             "LOAD_CACHE_ELSE_NETWORK" -> WebSettings.LOAD_CACHE_ELSE_NETWORK
@@ -544,7 +544,7 @@ class RNCWebViewManagerImpl {
         }
     }
 
-    fun setDomStorageEnabled(view: RNCWebView, value: Boolean) {
+    fun setDomStorageEnabled(view: RNCCarefreesWebView, value: Boolean) {
         view.settings.domStorageEnabled = value
     }
 
@@ -552,7 +552,7 @@ class RNCWebViewManagerImpl {
         mDownloadingMessage = value
     }
 
-    fun setForceDarkOn(view: RNCWebView, enabled: Boolean) {
+    fun setForceDarkOn(view: RNCCarefreesWebView, enabled: Boolean) {
         // Only Android 10+ support dark mode
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.P) {
             if (WebViewFeature.isFeatureSupported(WebViewFeature.FORCE_DARK)) {
@@ -575,7 +575,7 @@ class RNCWebViewManagerImpl {
         }
     }
 
-    fun setGeolocationEnabled(view: RNCWebView, value: Boolean) {
+    fun setGeolocationEnabled(view: RNCCarefreesWebView, value: Boolean) {
         view.settings.setGeolocationEnabled(value)
     }
 
@@ -583,11 +583,11 @@ class RNCWebViewManagerImpl {
         mLackPermissionToDownloadMessage = value
     }
 
-    fun setMinimumFontSize(view: RNCWebView, value: Int) {
+    fun setMinimumFontSize(view: RNCCarefreesWebView, value: Int) {
         view.settings.minimumFontSize = value
     }
 
-    fun setAllowsProtectedMedia(view: RNCWebView, enabled: Boolean) {
+    fun setAllowsProtectedMedia(view: RNCCarefreesWebView, enabled: Boolean) {
       // This variable is used to keep consistency
       // in case a new WebChromeClient is created
       // (eg. when mAllowsFullScreenVideo changes)
@@ -600,11 +600,11 @@ class RNCWebViewManagerImpl {
       }
     }
 
-    fun setNestedScrollEnabled(view: RNCWebView, value: Boolean) {
+    fun setNestedScrollEnabled(view: RNCCarefreesWebView, value: Boolean) {
         view.nestedScrollEnabled = value
     }
 
-    fun setOverScrollMode(view: RNCWebView, overScrollModeString: String?) {
+    fun setOverScrollMode(view: RNCCarefreesWebView, overScrollModeString: String?) {
         view.overScrollMode = when (overScrollModeString) {
             "never" -> View.OVER_SCROLL_NEVER
             "content" -> View.OVER_SCROLL_IF_CONTENT_SCROLLS
@@ -613,33 +613,33 @@ class RNCWebViewManagerImpl {
         }
     }
 
-    fun setSaveFormDataDisabled(view: RNCWebView, disabled: Boolean) {
+    fun setSaveFormDataDisabled(view: RNCCarefreesWebView, disabled: Boolean) {
         view.settings.saveFormData = !disabled
     }
 
-    fun setScalesPageToFit(view: RNCWebView, value: Boolean) {
+    fun setScalesPageToFit(view: RNCCarefreesWebView, value: Boolean) {
         view.settings.loadWithOverviewMode = value
         view.settings.useWideViewPort = value
     }
 
-    fun setSetBuiltInZoomControls(view: RNCWebView, value: Boolean) {
+    fun setSetBuiltInZoomControls(view: RNCCarefreesWebView, value: Boolean) {
         view.settings.builtInZoomControls = value
     }
 
-    fun setSetDisplayZoomControls(view: RNCWebView, value: Boolean) {
+    fun setSetDisplayZoomControls(view: RNCCarefreesWebView, value: Boolean) {
         view.settings.displayZoomControls = value
 
     }
 
-    fun setSetSupportMultipleWindows(view: RNCWebView, value: Boolean) {
+    fun setSetSupportMultipleWindows(view: RNCCarefreesWebView, value: Boolean) {
         view.settings.setSupportMultipleWindows(value)
     }
 
-    fun setTextZoom(view: RNCWebView, value: Int) {
+    fun setTextZoom(view: RNCCarefreesWebView, value: Int) {
         view.settings.textZoom = value
     }
 
-    fun setThirdPartyCookiesEnabled(view: RNCWebView, enabled: Boolean) {
+    fun setThirdPartyCookiesEnabled(view: RNCCarefreesWebView, enabled: Boolean) {
         CookieManager.getInstance().setAcceptThirdPartyCookies(view, enabled)
     }
 }

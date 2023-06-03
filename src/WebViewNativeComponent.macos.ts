@@ -1,8 +1,8 @@
 import { requireNativeComponent } from "react-native";
 import type { NativeWebViewMacOS } from "./WebViewTypes";
 
-const RNCWebView: typeof NativeWebViewMacOS = requireNativeComponent(
-  'RNCWebView',
+const RNCCarefreesWebView: typeof NativeWebViewMacOS = requireNativeComponent(
+  'RNCCarefreesWebView',
 );
 
-export default RNCWebView;
+export default RNCCarefreesWebView;

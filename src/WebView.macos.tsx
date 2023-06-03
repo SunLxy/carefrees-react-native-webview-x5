@@ -7,8 +7,8 @@ import {
 import invariant from 'invariant';
 
 import codegenNativeCommands from 'react-native/Libraries/Utilities/codegenNativeCommands';
-import RNCWebView from "./WebViewNativeComponent.macos";
-import RNCWebViewModule from "./NativeRNCWebView";
+import RNCCarefreesWebView from "./WebViewNativeComponent.macos";
+import RNCCarefreesWebViewModule from "./NativeRNCCarefreesWebView";
 import {
   defaultOriginWhitelist,
   defaultRenderError,
@@ -40,7 +40,7 @@ const WebViewComponent = forwardRef<{}, MacOSWebViewProps>(({
   javaScriptEnabled = true,
   cacheEnabled = true,
   originWhitelist = defaultOriginWhitelist,
-  useSharedProcessPool= true,
+  useSharedProcessPool = true,
   injectedJavaScript,
   injectedJavaScriptBeforeContentLoaded,
   startInLoadingState,
@@ -72,7 +72,7 @@ const WebViewComponent = forwardRef<{}, MacOSWebViewProps>(({
     _url: string,
     lockIdentifier = 0,
   ) => {
-    RNCWebViewModule.shouldStartLoadWithLockIdentifier(!!shouldStart, lockIdentifier);
+    RNCCarefreesWebViewModule.shouldStartLoadWithLockIdentifier(!!shouldStart, lockIdentifier);
   }, []);
 
   const { onLoadingStart, onShouldStartLoadWithRequest, onMessage, viewState, setViewState, lastErrorEvent, onHttpError, onLoadingError, onLoadingFinish, onLoadingProgress, onContentProcessDidTerminate } = useWebViewLogic({
@@ -121,15 +121,15 @@ const WebViewComponent = forwardRef<{}, MacOSWebViewProps>(({
       lastErrorEvent.description,
     );
   } else if (viewState !== 'IDLE') {
-    console.error(`RNCWebView invalid state encountered: ${viewState}`);
+    console.error(`RNCCarefreesWebView invalid state encountered: ${viewState}`);
   }
 
   const webViewStyles = [styles.container, styles.webView, style];
   const webViewContainerStyle = [styles.container, containerStyle];
 
   const NativeWebView
-  = (nativeConfig?.component as typeof NativeWebViewMacOS | undefined)
-  || RNCWebView;
+    = (nativeConfig?.component as typeof NativeWebViewMacOS | undefined)
+    || RNCCarefreesWebView;
 
   const webView = (
     <NativeWebView
@@ -166,12 +166,13 @@ const WebViewComponent = forwardRef<{}, MacOSWebViewProps>(({
       {webView}
       {otherView}
     </View>
-  );})
+  );
+})
 
 // no native implementation for macOS, depends only on permissions
 const isFileUploadSupported: () => Promise<boolean>
   = async () => true;
 
-const WebView = Object.assign(WebViewComponent, {isFileUploadSupported});
+const WebView = Object.assign(WebViewComponent, { isFileUploadSupported });
 
 export default WebView;

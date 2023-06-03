@@ -14,12 +14,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class RNCWebViewPackage extends TurboReactPackage {
+public class RNCCarefreesWebViewPackage extends TurboReactPackage {
 
     @Override
     public List<ViewManager> createViewManagers(ReactApplicationContext reactContext) {
         List<ViewManager> viewManagers = new ArrayList<>();
-        viewManagers.add(new RNCWebViewManager());
+        viewManagers.add(new RNCCarefreesWebViewManager());
         return viewManagers;
     }
 
@@ -29,10 +29,10 @@ public class RNCWebViewPackage extends TurboReactPackage {
             final Map<String, ReactModuleInfo> moduleInfos = new HashMap<>();
             boolean isTurboModule = BuildConfig.IS_NEW_ARCHITECTURE_ENABLED;
             moduleInfos.put(
-                    RNCWebViewModuleImpl.NAME,
+                    RNCCarefreesWebViewModuleImpl.NAME,
                     new ReactModuleInfo(
-                            RNCWebViewModuleImpl.NAME,
-                            RNCWebViewModuleImpl.NAME,
+                            RNCCarefreesWebViewModuleImpl.NAME,
+                            RNCCarefreesWebViewModuleImpl.NAME,
                             false, // canOverrideExistingModule
                             false, // needsEagerInit
                             true, // hasConstants
@@ -46,8 +46,8 @@ public class RNCWebViewPackage extends TurboReactPackage {
     @Nullable
     @Override
     public NativeModule getModule(String name, ReactApplicationContext reactContext) {
-        if (name.equals(RNCWebViewModuleImpl.NAME)) {
-            return new RNCWebViewModule(reactContext);
+        if (name.equals(RNCCarefreesWebViewModuleImpl.NAME)) {
+            return new RNCCarefreesWebViewModule(reactContext);
         } else {
             return null;
         }

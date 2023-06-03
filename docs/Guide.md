@@ -242,7 +242,7 @@ You can control **single** or **multiple** file selection by specifing the [`mul
 ##### iOS
 
 On iOS, you are going to have to supply your own code to download files. You can supply an `onFileDownload` callback
-to the WebView component as a prop. If RNCWebView determines that a file download needs to take place, the URL where you can download the file
+to the WebView component as a prop. If RNCCarefreesWebView determines that a file download needs to take place, the URL where you can download the file
 will be given to `onFileDownload`. From that callback you can then download that file however you would like to do so.
 
 NOTE: iOS 13+ is needed for the best possible download experience. On iOS 13 Apple added an API for accessing HTTP response headers, which

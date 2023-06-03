@@ -11,7 +11,7 @@ import {
   NativeScrollEvent,
 } from 'react-native';
 
-import type NativeWebViewComponent from './RNCWebViewNativeComponent'
+import type NativeWebViewComponent from './RNCCarefreesWebViewNativeComponent'
 
 type WebViewCommands =
   | 'goForward'
@@ -25,18 +25,18 @@ type WebViewCommands =
 
 type AndroidWebViewCommands = 'clearHistory' | 'clearCache' | 'clearFormData';
 
-interface RNCWebViewUIManager<Commands extends string> extends UIManagerStatic {
+interface RNCCarefreesWebViewUIManager<Commands extends string> extends UIManagerStatic {
   getViewManagerConfig: (name: string) => {
     Commands: { [key in Commands]: number };
   };
 }
 
-export type RNCWebViewUIManagerAndroid = RNCWebViewUIManager<
+export type RNCCarefreesWebViewUIManagerAndroid = RNCCarefreesWebViewUIManager<
   WebViewCommands | AndroidWebViewCommands
 >;
-export type RNCWebViewUIManagerIOS = RNCWebViewUIManager<WebViewCommands>;
-export type RNCWebViewUIManagerMacOS = RNCWebViewUIManager<WebViewCommands>;
-export type RNCWebViewUIManagerWindows = RNCWebViewUIManager<WebViewCommands>;
+export type RNCCarefreesWebViewUIManagerIOS = RNCCarefreesWebViewUIManager<WebViewCommands>;
+export type RNCCarefreesWebViewUIManagerMacOS = RNCCarefreesWebViewUIManager<WebViewCommands>;
+export type RNCCarefreesWebViewUIManagerWindows = RNCCarefreesWebViewUIManager<WebViewCommands>;
 
 type WebViewState = 'IDLE' | 'LOADING' | 'ERROR';
 
@@ -60,16 +60,16 @@ export type State = NormalState | ErrorState;
 type Constructor<T> = new (...args: any[]) => T;
 
 // eslint-disable-next-line react/prefer-stateless-function
-declare class NativeWebViewMacOSComponent extends Component<MacOSNativeWebViewProps> {}
+declare class NativeWebViewMacOSComponent extends Component<MacOSNativeWebViewProps> { }
 declare const NativeWebViewMacOSBase: Constructor<NativeMethodsMixin> &
   typeof NativeWebViewMacOSComponent;
-export class NativeWebViewMacOS extends NativeWebViewMacOSBase {}
+export class NativeWebViewMacOS extends NativeWebViewMacOSBase { }
 
 // eslint-disable-next-line react/prefer-stateless-function
-declare class NativeWebViewWindowsComponent extends Component<WindowsNativeWebViewProps> {}
+declare class NativeWebViewWindowsComponent extends Component<WindowsNativeWebViewProps> { }
 declare const NativeWebViewWindowsBase: Constructor<NativeMethodsMixin> &
   typeof NativeWebViewWindowsComponent;
-export class NativeWebViewWindows extends NativeWebViewWindowsBase {}
+export class NativeWebViewWindows extends NativeWebViewWindowsBase { }
 
 export interface ContentInsetProp {
   top?: number;
@@ -93,12 +93,12 @@ export interface WebViewNativeProgressEvent extends WebViewNativeEvent {
 
 export interface WebViewNavigation extends WebViewNativeEvent {
   navigationType:
-    | 'click'
-    | 'formsubmit'
-    | 'backforward'
-    | 'reload'
-    | 'formresubmit'
-    | 'other';
+  | 'click'
+  | 'formsubmit'
+  | 'backforward'
+  | 'reload'
+  | 'formresubmit'
+  | 'other';
   mainDocumentURL?: string;
 }
 
@@ -241,8 +241,8 @@ export interface WebViewNativeConfig {
    * The native component used to render the WebView.
    */
   component?:
-    | typeof NativeWebViewMacOS
-    | typeof NativeWebViewComponent;
+  | typeof NativeWebViewMacOS
+  | typeof NativeWebViewComponent;
   /**
    * Set props directly on the native component WebView. Enables custom props which the
    * original WebView doesn't pass through.
@@ -673,11 +673,12 @@ export interface IOSWebViewProps extends WebViewSharedProps {
    * `selectedText`: the text selected on the document
    * @platform ios
    */
-  onCustomMenuSelection?: (event: {nativeEvent: {
-    label: string;
-    key: string;
-    selectedText: string;
-  }
+  onCustomMenuSelection?: (event: {
+    nativeEvent: {
+      label: string;
+      key: string;
+      selectedText: string;
+    }
   }) => void;
 }
 
@@ -1088,7 +1089,7 @@ export interface WebViewSharedProps extends ViewProps {
   /**
    * Function that is invoked when the `WebView` scrolls.
    */
-   onScroll?: ComponentProps<typeof NativeWebViewComponent>['onScroll'];
+  onScroll?: ComponentProps<typeof NativeWebViewComponent>['onScroll'];
 
   /**
    * Function that is invoked when the `WebView` has finished loading.

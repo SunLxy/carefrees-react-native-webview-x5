@@ -1,9 +1,9 @@
-#ifndef RNCWebViewManager_h
-#define RNCWebViewManager_h
+#ifndef RNCCarefreesWebViewManager_h
+#define RNCCarefreesWebViewManager_h
 
 #import <React/RCTViewManager.h>
 
-@interface RNCWebViewManager : RCTViewManager
+@interface RNCCarefreesWebViewManager : RCTViewManager
 @end
 
-#endif /* RNCWebViewManager_h */
+#endif /* RNCCarefreesWebViewManager_h */

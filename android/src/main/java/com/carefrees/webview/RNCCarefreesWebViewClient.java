@@ -34,12 +34,12 @@ import com.carefrees.webview.events.TopShouldStartLoadWithRequestEvent;
 
 import java.util.concurrent.atomic.AtomicReference;
 
-public class RNCWebViewClient extends WebViewClient {
-    private static String TAG = "RNCWebViewClient";
+public class RNCCarefreesWebViewClient extends WebViewClient {
+    private static String TAG = "RNCCarefreesWebViewClient";
     protected static final int SHOULD_OVERRIDE_URL_LOADING_TIMEOUT = 250;
 
     protected boolean mLastLoadFailed = false;
-    protected RNCWebView.ProgressChangedFilter progressChangedFilter = null;
+    protected RNCCarefreesWebView.ProgressChangedFilter progressChangedFilter = null;
     protected @Nullable String ignoreErrFailedForThisURL = null;
     protected @Nullable RNCBasicAuthCredential basicAuthCredential = null;
 
@@ -56,7 +56,7 @@ public class RNCWebViewClient extends WebViewClient {
         super.onPageFinished(webView, url);
 
         if (!mLastLoadFailed) {
-            RNCWebView reactWebView = (RNCWebView) webView;
+            RNCCarefreesWebView reactWebView = (RNCCarefreesWebView) webView;
 
             reactWebView.callInjectedJavaScript();
 
@@ -68,7 +68,7 @@ public class RNCWebViewClient extends WebViewClient {
     public void doUpdateVisitedHistory (WebView webView, String url, boolean isReload) {
       super.doUpdateVisitedHistory(webView, url, isReload);
 
-      ((RNCWebView) webView).dispatchEvent(
+      ((RNCCarefreesWebView) webView).dispatchEvent(
         webView,
         new TopLoadingStartEvent(
           webView.getId(),
@@ -80,32 +80,32 @@ public class RNCWebViewClient extends WebViewClient {
       super.onPageStarted(webView, url, favicon);
       mLastLoadFailed = false;
 
-      RNCWebView reactWebView = (RNCWebView) webView;
+      RNCCarefreesWebView reactWebView = (RNCCarefreesWebView) webView;
       reactWebView.callInjectedJavaScriptBeforeContentLoaded();
     }
 
     @Override
     public boolean shouldOverrideUrlLoading(WebView view, String url) {
-        final RNCWebView rncWebView = (RNCWebView) view;
+        final RNCCarefreesWebView RNCCarefreesWebView = (RNCCarefreesWebView) view;
         final boolean isJsDebugging = ((ReactContext) view.getContext()).getJavaScriptContextHolder().get() == 0;
 
-        if (!isJsDebugging && rncWebView.mCatalystInstance != null) {
-            final Pair<Double, AtomicReference<RNCWebViewModuleImpl.ShouldOverrideUrlLoadingLock.ShouldOverrideCallbackState>> lock = RNCWebViewModuleImpl.shouldOverrideUrlLoadingLock.getNewLock();
+        if (!isJsDebugging && RNCCarefreesWebView.mCatalystInstance != null) {
+            final Pair<Double, AtomicReference<RNCCarefreesWebViewModuleImpl.ShouldOverrideUrlLoadingLock.ShouldOverrideCallbackState>> lock = RNCCarefreesWebViewModuleImpl.shouldOverrideUrlLoadingLock.getNewLock();
             final double lockIdentifier = lock.first;
-            final AtomicReference<RNCWebViewModuleImpl.ShouldOverrideUrlLoadingLock.ShouldOverrideCallbackState> lockObject = lock.second;
+            final AtomicReference<RNCCarefreesWebViewModuleImpl.ShouldOverrideUrlLoadingLock.ShouldOverrideCallbackState> lockObject = lock.second;
 
             final WritableMap event = createWebViewEvent(view, url);
             event.putDouble("lockIdentifier", lockIdentifier);
-            rncWebView.sendDirectMessage("onShouldStartLoadWithRequest", event);
+            RNCCarefreesWebView.sendDirectMessage("onShouldStartLoadWithRequest", event);
 
             try {
                 assert lockObject != null;
                 synchronized (lockObject) {
                     final long startTime = SystemClock.elapsedRealtime();
-                    while (lockObject.get() == RNCWebViewModuleImpl.ShouldOverrideUrlLoadingLock.ShouldOverrideCallbackState.UNDECIDED) {
+                    while (lockObject.get() == RNCCarefreesWebViewModuleImpl.ShouldOverrideUrlLoadingLock.ShouldOverrideCallbackState.UNDECIDED) {
                         if (SystemClock.elapsedRealtime() - startTime > SHOULD_OVERRIDE_URL_LOADING_TIMEOUT) {
                             FLog.w(TAG, "Did not receive response to shouldOverrideUrlLoading in time, defaulting to allow loading.");
-                            RNCWebViewModuleImpl.shouldOverrideUrlLoadingLock.removeLock(lockIdentifier);
+                            RNCCarefreesWebViewModuleImpl.shouldOverrideUrlLoadingLock.removeLock(lockIdentifier);
                             return false;
                         }
                         lockObject.wait(SHOULD_OVERRIDE_URL_LOADING_TIMEOUT);
@@ -113,12 +113,12 @@ public class RNCWebViewClient extends WebViewClient {
                 }
             } catch (InterruptedException e) {
                 FLog.e(TAG, "shouldOverrideUrlLoading was interrupted while waiting for result.", e);
-                RNCWebViewModuleImpl.shouldOverrideUrlLoadingLock.removeLock(lockIdentifier);
+                RNCCarefreesWebViewModuleImpl.shouldOverrideUrlLoadingLock.removeLock(lockIdentifier);
                 return false;
             }
 
-            final boolean shouldOverride = lockObject.get() == RNCWebViewModuleImpl.ShouldOverrideUrlLoadingLock.ShouldOverrideCallbackState.SHOULD_OVERRIDE;
-            RNCWebViewModuleImpl.shouldOverrideUrlLoadingLock.removeLock(lockIdentifier);
+            final boolean shouldOverride = lockObject.get() == RNCCarefreesWebViewModuleImpl.ShouldOverrideUrlLoadingLock.ShouldOverrideCallbackState.SHOULD_OVERRIDE;
+            RNCCarefreesWebViewModuleImpl.shouldOverrideUrlLoadingLock.removeLock(lockIdentifier);
 
             return shouldOverride;
         } else {
@@ -312,7 +312,7 @@ public class RNCWebViewClient extends WebViewClient {
         return event;
     }
 
-    public void setProgressChangedFilter(RNCWebView.ProgressChangedFilter filter) {
+    public void setProgressChangedFilter(RNCCarefreesWebView.ProgressChangedFilter filter) {
         progressChangedFilter = filter;
     }
 }

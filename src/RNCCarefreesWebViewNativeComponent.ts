@@ -1,6 +1,6 @@
 import type { HostComponent, ViewProps } from 'react-native';
 import codegenNativeComponent from 'react-native/Libraries/Utilities/codegenNativeComponent';
-import {DirectEventHandler,Double, Int32, WithDefault} from 'react-native/Libraries/Types/CodegenTypes';
+import { DirectEventHandler, Double, Int32, WithDefault } from 'react-native/Libraries/Types/CodegenTypes';
 import codegenNativeCommands from 'react-native/Libraries/Utilities/codegenNativeCommands';
 
 export type WebViewNativeEvent = Readonly<{
@@ -48,7 +48,7 @@ export type WebViewErrorEvent = Readonly<{
   description: string;
 }>
 
-export type WebViewNativeProgressEvent = Readonly< {
+export type WebViewNativeProgressEvent = Readonly<{
   url: string;
   loading: boolean;
   title: string;
@@ -58,7 +58,7 @@ export type WebViewNativeProgressEvent = Readonly< {
   progress: Double;
 }>
 
-export type WebViewNavigationEvent = Readonly< {
+export type WebViewNavigationEvent = Readonly<{
   url: string;
   loading: boolean;
   title: string;
@@ -66,16 +66,16 @@ export type WebViewNavigationEvent = Readonly< {
   canGoForward: boolean;
   lockIdentifier: Double;
   navigationType:
-    | 'click'
-    | 'formsubmit'
-    | 'backforward'
-    | 'reload'
-    | 'formresubmit'
-    | 'other';
+  | 'click'
+  | 'formsubmit'
+  | 'backforward'
+  | 'reload'
+  | 'formresubmit'
+  | 'other';
   mainDocumentURL?: string;
 }>
 
-export type ShouldStartLoadRequestEvent  = Readonly<{
+export type ShouldStartLoadRequestEvent = Readonly<{
   url: string;
   loading: boolean;
   title: string;
@@ -83,12 +83,12 @@ export type ShouldStartLoadRequestEvent  = Readonly<{
   canGoForward: boolean;
   lockIdentifier: Double;
   navigationType:
-    | 'click'
-    | 'formsubmit'
-    | 'backforward'
-    | 'reload'
-    | 'formresubmit'
-    | 'other';
+  | 'click'
+  | 'formsubmit'
+  | 'backforward'
+  | 'reload'
+  | 'formresubmit'
+  | 'other';
   mainDocumentURL?: string;
   isTopFrame: boolean;
 }>
@@ -203,7 +203,7 @@ export interface NativeProps extends ViewProps {
   onCustomMenuSelection?: DirectEventHandler<WebViewCustomMenuSelectionEvent>;
   onFileDownload?: DirectEventHandler<WebViewDownloadEvent>;
   // eslint-disable-next-line @typescript-eslint/array-type
-  menuItems?: ReadonlyArray<Readonly<{label: string, key: string}>>;
+  menuItems?: ReadonlyArray<Readonly<{ label: string, key: string }>>;
   // Workaround to watch if listener if defined
   hasOnFileDownload?: boolean;
   // !iOS only
@@ -240,7 +240,7 @@ export interface NativeProps extends ViewProps {
     method?: string;
     body?: string;
     // eslint-disable-next-line @typescript-eslint/array-type
-    headers?: ReadonlyArray<Readonly<{name: string, value: string}>>;
+    headers?: ReadonlyArray<Readonly<{ name: string, value: string }>>;
     html?: string;
     baseUrl?: string;
   }>;
@@ -248,7 +248,7 @@ export interface NativeProps extends ViewProps {
 }
 
 export interface NativeCommands {
-  goBack: (viewRef: React.ElementRef<HostComponent<NativeProps>> ) => void;
+  goBack: (viewRef: React.ElementRef<HostComponent<NativeProps>>) => void;
   goForward: (viewRef: React.ElementRef<HostComponent<NativeProps>>) => void;
   reload: (viewRef: React.ElementRef<HostComponent<NativeProps>>) => void;
   stopLoading: (viewRef: React.ElementRef<HostComponent<NativeProps>>) => void;
@@ -268,5 +268,5 @@ export const Commands = codegenNativeCommands<NativeCommands>({
 });
 
 export default codegenNativeComponent<NativeProps>(
-  'RNCWebView'
+  'RNCCarefreesWebView'
 ) as HostComponent<NativeProps>;

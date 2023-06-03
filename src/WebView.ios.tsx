@@ -7,8 +7,8 @@ import {
 } from 'react-native';
 import invariant from 'invariant';
 
-import RNCWebView, {Commands, NativeProps} from "./RNCWebViewNativeComponent";
-import RNCWebViewModule from "./NativeRNCWebView";
+import RNCCarefreesWebView, { Commands, NativeProps } from "./RNCCarefreesWebViewNativeComponent";
+import RNCCarefreesWebViewModule from "./NativeRNCCarefreesWebView";
 
 import {
   defaultOriginWhitelist,
@@ -51,8 +51,8 @@ const WebViewComponent = forwardRef<{}, IOSWebViewProps>(({
   javaScriptEnabled = true,
   cacheEnabled = true,
   originWhitelist = defaultOriginWhitelist,
-  useSharedProcessPool= true,
-  textInteractionEnabled= true,
+  useSharedProcessPool = true,
+  textInteractionEnabled = true,
   injectedJavaScript,
   injectedJavaScriptBeforeContentLoaded,
   injectedJavaScriptForMainFrameOnly = true,
@@ -90,7 +90,7 @@ const WebViewComponent = forwardRef<{}, IOSWebViewProps>(({
     _url: string,
     lockIdentifier = 0,
   ) => {
-    RNCWebViewModule.shouldStartLoadWithLockIdentifier(shouldStart, lockIdentifier);
+    RNCCarefreesWebViewModule.shouldStartLoadWithLockIdentifier(shouldStart, lockIdentifier);
   }, []);
 
   const { onLoadingStart, onShouldStartLoadWithRequest, onMessage, viewState, setViewState, lastErrorEvent, onHttpError, onLoadingError, onLoadingFinish, onLoadingProgress, onContentProcessDidTerminate } = useWebViewLogic({
@@ -144,7 +144,7 @@ const WebViewComponent = forwardRef<{}, IOSWebViewProps>(({
       lastErrorEvent?.description ?? '',
     );
   } else if (viewState !== 'IDLE') {
-    console.error(`RNCWebView invalid state encountered: ${viewState}`);
+    console.error(`RNCCarefreesWebView invalid state encountered: ${viewState}`);
   }
 
   const webViewStyles = [styles.container, styles.webView, style];
@@ -153,8 +153,8 @@ const WebViewComponent = forwardRef<{}, IOSWebViewProps>(({
   const decelerationRate = processDecelerationRate(decelerationRateProp);
 
   const NativeWebView
-  = (nativeConfig?.component as typeof RNCWebView | undefined)
-  || RNCWebView;
+    = (nativeConfig?.component as typeof RNCCarefreesWebView | undefined)
+    || RNCCarefreesWebView;
 
   const sourceResolved = resolveAssetSource(source as ImageSourcePropType)
   const newSource = typeof sourceResolved === "object" ? Object.entries(sourceResolved as WebViewSourceUri).reduce((prev, [currKey, currValue]) => {
@@ -214,12 +214,13 @@ const WebViewComponent = forwardRef<{}, IOSWebViewProps>(({
       {webView}
       {otherView}
     </View>
-  );})
+  );
+})
 
 // no native implementation for iOS, depends only on permissions
 const isFileUploadSupported: () => Promise<boolean>
   = async () => true;
 
-const WebView = Object.assign(WebViewComponent, {isFileUploadSupported});
+const WebView = Object.assign(WebViewComponent, { isFileUploadSupported });
 
 export default WebView;

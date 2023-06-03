@@ -44,8 +44,8 @@ import java.util.concurrent.atomic.AtomicReference;
 
 import static android.app.Activity.RESULT_OK;
 
-public class RNCWebViewModuleImpl implements ActivityEventListener {
-    public static final String NAME = "RNCWebView";
+public class RNCCarefreesWebViewModuleImpl implements ActivityEventListener {
+    public static final String NAME = "RNCCarefreesWebView";
 
     public static final int PICKER = 1;
     public static final int PICKER_LEGACY = 3;
@@ -60,7 +60,7 @@ public class RNCWebViewModuleImpl implements ActivityEventListener {
     private File mOutputImage;
     private File mOutputVideo;
 
-    public RNCWebViewModuleImpl(ReactApplicationContext context) {
+    public RNCCarefreesWebViewModuleImpl(ReactApplicationContext context) {
         mContext = context;
         context.addActivityEventListener(this);
     }
@@ -85,7 +85,7 @@ public class RNCWebViewModuleImpl implements ActivityEventListener {
         // the camera activity doesn't properly return the filename* (I think?) so we use
         // this filename instead
         switch (requestCode) {
-            case RNCWebViewModuleImpl.PICKER:
+            case RNCCarefreesWebViewModuleImpl.PICKER:
                 if (resultCode != RESULT_OK) {
                     if (mFilePathCallback != null) {
                         mFilePathCallback.onReceiveValue(null);
@@ -100,7 +100,7 @@ public class RNCWebViewModuleImpl implements ActivityEventListener {
                     }
                 }
                 break;
-            case RNCWebViewModuleImpl.PICKER_LEGACY:
+            case RNCCarefreesWebViewModuleImpl.PICKER_LEGACY:
                 if (resultCode != RESULT_OK) {
                     mFilePathCallbackLegacy.onReceiveValue(null);
                 } else {
@@ -258,7 +258,7 @@ public class RNCWebViewModuleImpl implements ActivityEventListener {
         if (chooserIntent.resolveActivity(activity.getPackageManager()) != null) {
             activity.startActivityForResult(chooserIntent, PICKER_LEGACY);
         } else {
-            Log.w("RNCWebViewModule", "there is no Activity to handle this Intent");
+            Log.w("RNCCarefreesWebViewModule", "there is no Activity to handle this Intent");
         }
     }
 
@@ -291,7 +291,7 @@ public class RNCWebViewModuleImpl implements ActivityEventListener {
         if (chooserIntent.resolveActivity(activity.getPackageManager()) != null) {
             activity.startActivityForResult(chooserIntent, PICKER);
         } else {
-            Log.w("RNCWebViewModule", "there is no Activity to handle this Intent");
+            Log.w("RNCCarefreesWebViewModule", "there is no Activity to handle this Intent");
         }
 
         return true;
@@ -307,7 +307,7 @@ public class RNCWebViewModuleImpl implements ActivityEventListener {
         try {
             dm.enqueue(mDownloadRequest);
         } catch (IllegalArgumentException | SecurityException e) {
-            Log.w("RNCWebViewModule", "Unsupported URI, aborting download", e);
+            Log.w("RNCCarefreesWebViewModule", "Unsupported URI, aborting download", e);
             return;
         }
 

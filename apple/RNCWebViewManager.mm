@@ -1,10 +1,10 @@
 #import <React/RCTUIManager.h>
 
-#import "RNCWebViewManager.h"
-#import "RNCWebViewImpl.h"
-#import "RNCWebViewDecisionManager.h"
+#import "RNCCarefreesWebViewManager.h"
+#import "RNCCarefreesWebViewImpl.h"
+#import "RNCCarefreesWebViewDecisionManager.h"
 #ifdef RCT_NEW_ARCH_ENABLED
-#import "RNCWebViewSpec/RNCWebViewSpec.h"
+#import "RNCCarefreesWebViewSpec/RNCCarefreesWebViewSpec.h"
 #endif
 
 #if TARGET_OS_OSX
@@ -25,32 +25,32 @@ RCT_ENUM_CONVERTER(WKContentMode, (@{
 #endif
 
 #if defined(__IPHONE_OS_VERSION_MAX_ALLOWED) && __IPHONE_OS_VERSION_MAX_ALLOWED >= 150000 /* iOS 15 */
-RCT_ENUM_CONVERTER(RNCWebViewPermissionGrantType, (@{
-  @"grantIfSameHostElsePrompt": @(RNCWebViewPermissionGrantType_GrantIfSameHost_ElsePrompt),
-  @"grantIfSameHostElseDeny": @(RNCWebViewPermissionGrantType_GrantIfSameHost_ElseDeny),
-  @"deny": @(RNCWebViewPermissionGrantType_Deny),
-  @"grant": @(RNCWebViewPermissionGrantType_Grant),
-  @"prompt": @(RNCWebViewPermissionGrantType_Prompt),
-}), RNCWebViewPermissionGrantType_Prompt, integerValue)
+RCT_ENUM_CONVERTER(RNCCarefreesWebViewPermissionGrantType, (@{
+  @"grantIfSameHostElsePrompt": @(RNCCarefreesWebViewPermissionGrantType_GrantIfSameHost_ElsePrompt),
+  @"grantIfSameHostElseDeny": @(RNCCarefreesWebViewPermissionGrantType_GrantIfSameHost_ElseDeny),
+  @"deny": @(RNCCarefreesWebViewPermissionGrantType_Deny),
+  @"grant": @(RNCCarefreesWebViewPermissionGrantType_Grant),
+  @"prompt": @(RNCCarefreesWebViewPermissionGrantType_Prompt),
+}), RNCCarefreesWebViewPermissionGrantType_Prompt, integerValue)
 #endif
 @end
 
 
-@implementation RNCWebViewManager {
+@implementation RNCCarefreesWebViewManager {
     NSConditionLock *_shouldStartLoadLock;
     BOOL _shouldStartLoad;
 }
 
-RCT_EXPORT_MODULE(RNCWebView)
+RCT_EXPORT_MODULE(RNCCarefreesWebView)
 
 - (RNCView *)view
 {
-  return [[RNCWebViewImpl alloc] init];
+  return [[RNCCarefreesWebViewImpl alloc] init];
 }
 
 RCT_EXPORT_VIEW_PROPERTY(source, NSDictionary)
 // New arch only
-RCT_CUSTOM_VIEW_PROPERTY(newSource, NSDictionary, RNCWebViewImpl) {}
+RCT_CUSTOM_VIEW_PROPERTY(newSource, NSDictionary, RNCCarefreesWebViewImpl) {}
 RCT_EXPORT_VIEW_PROPERTY(onFileDownload, RCTDirectEventBlock)
 RCT_EXPORT_VIEW_PROPERTY(onLoadingStart, RCTDirectEventBlock)
 RCT_EXPORT_VIEW_PROPERTY(onLoadingFinish, RCTDirectEventBlock)
@@ -104,7 +104,7 @@ RCT_EXPORT_VIEW_PROPERTY(textInteractionEnabled, BOOL)
 #endif
 
 #if defined(__IPHONE_OS_VERSION_MAX_ALLOWED) && __IPHONE_OS_VERSION_MAX_ALLOWED >= 150000 /* iOS 15 */
-RCT_EXPORT_VIEW_PROPERTY(mediaCapturePermissionGrantType, RNCWebViewPermissionGrantType)
+RCT_EXPORT_VIEW_PROPERTY(mediaCapturePermissionGrantType, RNCCarefreesWebViewPermissionGrantType)
 #endif
 
 /**
@@ -116,51 +116,51 @@ RCT_EXPORT_VIEW_PROPERTY(onScroll, RCTDirectEventBlock)
 RCT_EXPORT_VIEW_PROPERTY(enableApplePay, BOOL)
 RCT_EXPORT_VIEW_PROPERTY(menuItems, NSArray);
 // New arch only
-RCT_CUSTOM_VIEW_PROPERTY(hasOnFileDownload, BOOL, RNCWebViewImpl) {}
+RCT_CUSTOM_VIEW_PROPERTY(hasOnFileDownload, BOOL, RNCCarefreesWebViewImpl) {}
 RCT_EXPORT_VIEW_PROPERTY(onCustomMenuSelection, RCTDirectEventBlock)
-RCT_CUSTOM_VIEW_PROPERTY(pullToRefreshEnabled, BOOL, RNCWebViewImpl) {
+RCT_CUSTOM_VIEW_PROPERTY(pullToRefreshEnabled, BOOL, RNCCarefreesWebViewImpl) {
   view.pullToRefreshEnabled = json == nil ? false : [RCTConvert BOOL: json];
 }
 
-RCT_CUSTOM_VIEW_PROPERTY(bounces, BOOL, RNCWebViewImpl) {
+RCT_CUSTOM_VIEW_PROPERTY(bounces, BOOL, RNCCarefreesWebViewImpl) {
   view.bounces = json == nil ? true : [RCTConvert BOOL: json];
 }
 
-RCT_CUSTOM_VIEW_PROPERTY(useSharedProcessPool, BOOL, RNCWebViewImpl) {
+RCT_CUSTOM_VIEW_PROPERTY(useSharedProcessPool, BOOL, RNCCarefreesWebViewImpl) {
   view.useSharedProcessPool = json == nil ? true : [RCTConvert BOOL: json];
 }
 
-RCT_CUSTOM_VIEW_PROPERTY(userAgent, NSString, RNCWebViewImpl) {
+RCT_CUSTOM_VIEW_PROPERTY(userAgent, NSString, RNCCarefreesWebViewImpl) {
   view.userAgent = [RCTConvert NSString: json];
 }
 
-RCT_CUSTOM_VIEW_PROPERTY(scrollEnabled, BOOL, RNCWebViewImpl) {
+RCT_CUSTOM_VIEW_PROPERTY(scrollEnabled, BOOL, RNCCarefreesWebViewImpl) {
   view.scrollEnabled = json == nil ? true : [RCTConvert BOOL: json];
 }
 
-RCT_CUSTOM_VIEW_PROPERTY(sharedCookiesEnabled, BOOL, RNCWebViewImpl) {
+RCT_CUSTOM_VIEW_PROPERTY(sharedCookiesEnabled, BOOL, RNCCarefreesWebViewImpl) {
   view.sharedCookiesEnabled = json == nil ? false : [RCTConvert BOOL: json];
 }
 
 #if !TARGET_OS_OSX
-RCT_CUSTOM_VIEW_PROPERTY(decelerationRate, CGFloat, RNCWebViewImpl) {
+RCT_CUSTOM_VIEW_PROPERTY(decelerationRate, CGFloat, RNCCarefreesWebViewImpl) {
   view.decelerationRate = json == nil ? UIScrollViewDecelerationRateNormal : [RCTConvert CGFloat: json];
 }
 #endif // !TARGET_OS_OSX
 
-RCT_CUSTOM_VIEW_PROPERTY(directionalLockEnabled, BOOL, RNCWebViewImpl) {
+RCT_CUSTOM_VIEW_PROPERTY(directionalLockEnabled, BOOL, RNCCarefreesWebViewImpl) {
   view.directionalLockEnabled = json == nil ? true : [RCTConvert BOOL: json];
 }
 
-RCT_CUSTOM_VIEW_PROPERTY(showsHorizontalScrollIndicator, BOOL, RNCWebViewImpl) {
+RCT_CUSTOM_VIEW_PROPERTY(showsHorizontalScrollIndicator, BOOL, RNCCarefreesWebViewImpl) {
   view.showsHorizontalScrollIndicator = json == nil ? true : [RCTConvert BOOL: json];
 }
 
-RCT_CUSTOM_VIEW_PROPERTY(showsVerticalScrollIndicator, BOOL, RNCWebViewImpl) {
+RCT_CUSTOM_VIEW_PROPERTY(showsVerticalScrollIndicator, BOOL, RNCCarefreesWebViewImpl) {
   view.showsVerticalScrollIndicator = json == nil ? true : [RCTConvert BOOL: json];
 }
 
-RCT_CUSTOM_VIEW_PROPERTY(keyboardDisplayRequiresUserAction, BOOL, RNCWebViewImpl) {
+RCT_CUSTOM_VIEW_PROPERTY(keyboardDisplayRequiresUserAction, BOOL, RNCCarefreesWebViewImpl) {
   view.keyboardDisplayRequiresUserAction = json == nil ? true : [RCTConvert BOOL: json];
 }
 
@@ -174,9 +174,9 @@ RCT_CUSTOM_VIEW_PROPERTY(keyboardDisplayRequiresUserAction, BOOL, RNCWebViewImpl
 RCT_EXPORT_METHOD(name:(nonnull NSNumber *)reactTag)                                                                                    \
 {                                                                                                                                       \
 [self.bridge.uiManager addUIBlock:^(__unused RCTUIManager *uiManager, NSDictionary<NSNumber *, BASE_VIEW_PER_OS() *> *viewRegistry) {   \
-    RNCWebViewImpl *view = (RNCWebViewImpl *)viewRegistry[reactTag];                                                                    \
-    if (![view isKindOfClass:[RNCWebViewImpl class]]) {                                                                                 \
-      RCTLogError(@"Invalid view returned from registry, expecting RNCWebView, got: %@", view);                                         \
+    RNCCarefreesWebViewImpl *view = (RNCCarefreesWebViewImpl *)viewRegistry[reactTag];                                                                    \
+    if (![view isKindOfClass:[RNCCarefreesWebViewImpl class]]) {                                                                                 \
+      RCTLogError(@"Invalid view returned from registry, expecting RNCCarefreesWebView, got: %@", view);                                         \
     } else {                                                                                                                            \
       [view name];                                                                                                                      \
     }                                                                                                                                   \
@@ -186,9 +186,9 @@ RCT_EXPORT_METHOD(name:(nonnull NSNumber *)reactTag)                            
 RCT_EXPORT_METHOD(name:(nonnull NSNumber *)reactTag in_param)                                                                           \
 {                                                                                                                                       \
 [self.bridge.uiManager addUIBlock:^(__unused RCTUIManager *uiManager, NSDictionary<NSNumber *, BASE_VIEW_PER_OS() *> *viewRegistry) {   \
-    RNCWebViewImpl *view = (RNCWebViewImpl *)viewRegistry[reactTag];                                                                    \
-    if (![view isKindOfClass:[RNCWebViewImpl class]]) {                                                                                 \
-      RCTLogError(@"Invalid view returned from registry, expecting RNCWebView, got: %@", view);                                         \
+    RNCCarefreesWebViewImpl *view = (RNCCarefreesWebViewImpl *)viewRegistry[reactTag];                                                                    \
+    if (![view isKindOfClass:[RNCCarefreesWebViewImpl class]]) {                                                                                 \
+      RCTLogError(@"Invalid view returned from registry, expecting RNCCarefreesWebView, got: %@", view);                                         \
     } else {                                                                                                                            \
       [view name:out_param];                                                                                                            \
     }                                                                                                                                   \
@@ -207,7 +207,7 @@ QUICK_RCT_EXPORT_COMMAND_METHOD_PARAMS(injectJavaScript, script:(NSString *)scri
 RCT_EXPORT_METHOD(shouldStartLoadWithLockIdentifier:(BOOL)shouldStart
                                         lockIdentifier:(double)lockIdentifier)
 {
-    [[RNCWebViewDecisionManager getInstance] setResult:shouldStart forLockIdentifier:(int)lockIdentifier];
+    [[RNCCarefreesWebViewDecisionManager getInstance] setResult:shouldStart forLockIdentifier:(int)lockIdentifier];
 }
 
 // Thanks to this guard, we won't compile this code when we build for the old architecture.
@@ -215,7 +215,7 @@ RCT_EXPORT_METHOD(shouldStartLoadWithLockIdentifier:(BOOL)shouldStart
 - (std::shared_ptr<facebook::react::TurboModule>)getTurboModule:
     (const facebook::react::ObjCTurboModule::InitParams &)params
 {
-    return std::make_shared<facebook::react::NativeRNCWebViewSpecJSI>(params);
+    return std::make_shared<facebook::react::NativeRNCCarefreesWebViewSpecJSI>(params);
 }
 #endif
 

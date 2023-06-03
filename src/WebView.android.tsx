@@ -11,8 +11,8 @@ import BatchedBridge from 'react-native/Libraries/BatchedBridge/BatchedBridge';
 
 import invariant from 'invariant';
 
-import RNCWebView, {Commands, NativeProps} from "./RNCWebViewNativeComponent";
-import RNCWebViewModule from "./NativeRNCWebView";
+import RNCCarefreesWebView, { Commands, NativeProps } from "./RNCCarefreesWebViewNativeComponent";
+import RNCCarefreesWebViewModule from "./NativeRNCCarefreesWebView";
 import {
   defaultOriginWhitelist,
   defaultRenderError,
@@ -73,7 +73,7 @@ const WebViewComponent = forwardRef<{}, AndroidWebViewProps>(({
     url: string,
     lockIdentifier?: number) => {
     if (lockIdentifier) {
-      RNCWebViewModule.shouldStartLoadWithLockIdentifier(shouldStart, lockIdentifier);
+      RNCCarefreesWebViewModule.shouldStartLoadWithLockIdentifier(shouldStart, lockIdentifier);
     } else if (shouldStart && webViewRef.current) {
       Commands.loadUrl(webViewRef.current, url);
     }
@@ -137,7 +137,7 @@ const WebViewComponent = forwardRef<{}, AndroidWebViewProps>(({
       );
     }
   } else if (viewState !== 'IDLE') {
-    console.error(`RNCWebView invalid state encountered: ${viewState}`);
+    console.error(`RNCCarefreesWebView invalid state encountered: ${viewState}`);
   }
 
   const webViewStyles = [styles.container, styles.webView, style];
@@ -154,7 +154,7 @@ const WebViewComponent = forwardRef<{}, AndroidWebViewProps>(({
   }
 
   const NativeWebView
-    = (nativeConfig?.component as (typeof RNCWebView | undefined)) || RNCWebView;
+    = (nativeConfig?.component as (typeof RNCCarefreesWebView | undefined)) || RNCCarefreesWebView;
 
   const sourceResolved = resolveAssetSource(source as ImageSourcePropType)
   const newSource = typeof sourceResolved === "object" ? Object.entries(sourceResolved as WebViewSourceUri).reduce((prev, [currKey, currValue]) => {
@@ -216,7 +216,7 @@ const WebViewComponent = forwardRef<{}, AndroidWebViewProps>(({
 });
 
 // native implementation should return "true" only for Android 5+
-const { isFileUploadSupported } = RNCWebViewModule;
+const { isFileUploadSupported } = RNCCarefreesWebViewModule;
 
 const WebView = Object.assign(WebViewComponent, { isFileUploadSupported });
 

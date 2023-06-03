@@ -10,48 +10,48 @@ import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.module.annotations.ReactModule;
 
-@ReactModule(name = RNCWebViewModuleImpl.NAME)
-public class RNCWebViewModule extends NativeRNCWebViewSpec {
-    final private RNCWebViewModuleImpl mRNCWebViewModuleImpl;
+@ReactModule(name = RNCCarefreesWebViewModuleImpl.NAME)
+public class RNCCarefreesWebViewModule extends NativeRNCCarefreesWebViewSpec {
+    final private RNCCarefreesWebViewModuleImpl mRNCCarefreesWebViewModuleImpl;
 
-    public RNCWebViewModule(ReactApplicationContext reactContext) {
+    public RNCCarefreesWebViewModule(ReactApplicationContext reactContext) {
         super(reactContext);
-        mRNCWebViewModuleImpl = new RNCWebViewModuleImpl(reactContext);
+        mRNCCarefreesWebViewModuleImpl = new RNCCarefreesWebViewModuleImpl(reactContext);
     }
 
     @Override
     public void isFileUploadSupported(final Promise promise) {
-        promise.resolve(mRNCWebViewModuleImpl.isFileUploadSupported());
+        promise.resolve(mRNCCarefreesWebViewModuleImpl.isFileUploadSupported());
     }
 
     @Override
     public void shouldStartLoadWithLockIdentifier(boolean shouldStart, double lockIdentifier) {
-        mRNCWebViewModuleImpl.shouldStartLoadWithLockIdentifier(shouldStart, lockIdentifier);
+        mRNCCarefreesWebViewModuleImpl.shouldStartLoadWithLockIdentifier(shouldStart, lockIdentifier);
     }
 
     public void startPhotoPickerIntent(ValueCallback<Uri> filePathCallback, String acceptType) {
-        mRNCWebViewModuleImpl.startPhotoPickerIntent(acceptType, filePathCallback);
+        mRNCCarefreesWebViewModuleImpl.startPhotoPickerIntent(acceptType, filePathCallback);
     }
 
     public boolean startPhotoPickerIntent(final ValueCallback<Uri[]> callback, final String[] acceptTypes, final boolean allowMultiple) {
-        return mRNCWebViewModuleImpl.startPhotoPickerIntent(acceptTypes, allowMultiple, callback);
+        return mRNCCarefreesWebViewModuleImpl.startPhotoPickerIntent(acceptTypes, allowMultiple, callback);
     }
 
     public void setDownloadRequest(DownloadManager.Request request) {
-        mRNCWebViewModuleImpl.setDownloadRequest(request);
+        mRNCCarefreesWebViewModuleImpl.setDownloadRequest(request);
     }
 
     public void downloadFile(String downloadingMessage) {
-        mRNCWebViewModuleImpl.downloadFile(downloadingMessage);
+        mRNCCarefreesWebViewModuleImpl.downloadFile(downloadingMessage);
     }
 
     public boolean grantFileDownloaderPermissions(String downloadingMessage, String lackPermissionToDownloadMessage) {
-        return mRNCWebViewModuleImpl.grantFileDownloaderPermissions(downloadingMessage, lackPermissionToDownloadMessage);
+        return mRNCCarefreesWebViewModuleImpl.grantFileDownloaderPermissions(downloadingMessage, lackPermissionToDownloadMessage);
     }
 
     @NonNull
     @Override
     public String getName() {
-        return RNCWebViewModuleImpl.NAME;
+        return RNCCarefreesWebViewModuleImpl.NAME;
     }
 }

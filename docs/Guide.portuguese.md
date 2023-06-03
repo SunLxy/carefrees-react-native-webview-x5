@@ -231,7 +231,7 @@ Você pode controlar a seleção de arquivo **único** ou **múltiplo** especifi
 
 ##### iOS
 
-O iOS, você terá que fornecer seu próprio código para baixar os arquivos. Você pode fornecer um retorno de chamada `onFileDownload` para o componente WebView como um prop. Se o RNCWebView determinar que um download de arquivo precisa ocorrer, a URL onde você pode baixar o arquivo será dado a `onFileDownload`. A partir desse retorno de chamada, você pode baixar esse arquivo da maneira que desejar.
+O iOS, você terá que fornecer seu próprio código para baixar os arquivos. Você pode fornecer um retorno de chamada `onFileDownload` para o componente WebView como um prop. Se o RNCCarefreesWebView determinar que um download de arquivo precisa ocorrer, a URL onde você pode baixar o arquivo será dado a `onFileDownload`. A partir desse retorno de chamada, você pode baixar esse arquivo da maneira que desejar.
 
 NOTA: O iOS 13+ é necessário para a melhor experiência de download possível. No iOS 13, a Apple adicionou uma API para acessar cabeçalhos de resposta HTTP, que
 é usado para determinar se uma resposta HTTP deve ser um download. No iOS 12 ou anterior, apenas os tipos MIME que não podem ser renderizados pela webview serão

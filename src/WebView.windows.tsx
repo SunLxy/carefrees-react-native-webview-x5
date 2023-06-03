@@ -19,7 +19,7 @@ import {
 } from 'react-native';
 import codegenNativeCommands from 'react-native/Libraries/Utilities/codegenNativeCommands';
 import invariant from 'invariant';
-import {RCTWebView, RCTWebView2} from "./WebViewNativeComponent.windows";
+import { RCTWebView, RCTWebView2 } from "./WebViewNativeComponent.windows";
 import { useWebViewLogic, defaultOriginWhitelist, defaultRenderError, defaultRenderLoading, } from './WebViewShared';
 import {
   NativeWebViewWindows,
@@ -61,9 +61,9 @@ const WebViewComponent = forwardRef<{}, WindowsWebViewProps>(({
 
   const onShouldStartLoadWithRequestCallback = useCallback((shouldStart: boolean, url: string, lockIdentifier?: number) => {
     if (lockIdentifier) {
-      if (RCTWebViewString === 'RCTWebView'){
+      if (RCTWebViewString === 'RCTWebView') {
         NativeModules.RCTWebView.onShouldStartLoadWithRequestCallback(shouldStart, lockIdentifier);
-      }else{
+      } else {
         NativeModules.RCTWebView2.onShouldStartLoadWithRequestCallback(shouldStart, lockIdentifier);
       }
     } else if (shouldStart) {
@@ -111,14 +111,14 @@ const WebViewComponent = forwardRef<{}, WindowsWebViewProps>(({
       lastErrorEvent.description,
     );
   } else if (viewState !== 'IDLE') {
-    console.error(`RNCWebView invalid state encountered: ${viewState}`);
+    console.error(`RNCCarefreesWebView invalid state encountered: ${viewState}`);
   }
 
   const webViewStyles = [styles.container, styles.webView, style];
   const webViewContainerStyle = [styles.container, containerStyle];
 
   const NativeWebView
-  = useWebView2? RCTWebView2 : RCTWebView;
+    = useWebView2 ? RCTWebView2 : RCTWebView;
 
   const webView = <NativeWebView
     key="webViewKey"
@@ -149,8 +149,8 @@ const WebViewComponent = forwardRef<{}, WindowsWebViewProps>(({
 
 // native implementation should return "true" only for Android 5+
 const isFileUploadSupported: () => Promise<boolean>
-= async () => false;
+  = async () => false;
 
-const WebView = Object.assign(WebViewComponent, {isFileUploadSupported});
+const WebView = Object.assign(WebViewComponent, { isFileUploadSupported });
 
 export default WebView;

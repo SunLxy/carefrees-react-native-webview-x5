@@ -1,4 +1,4 @@
-package com.reactnativecommunity.webview;
+package com.carefrees.webview;
 
 import androidx.core.content.FileProvider;
 

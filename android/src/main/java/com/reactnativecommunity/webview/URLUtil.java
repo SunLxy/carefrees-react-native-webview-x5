@@ -25,7 +25,7 @@
  *   support for the "filename*" parameter in content disposition
  */
 
-package com.reactnativecommunity.webview;
+package com.carefrees.webview;
 
 import android.net.Uri;
 import android.webkit.MimeTypeMap;

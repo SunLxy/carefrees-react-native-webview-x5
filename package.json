@@ -98,7 +98,7 @@
     "type": "all",
     "jsSrcsDir": "./src",
     "android": {
-      "javaPackageName": "com.reactnativecommunity.webview"
+      "javaPackageName": "com.carefrees.webview"
     }
   }
 }

@@ -84,7 +84,7 @@ if (isNewArchitectureEnabled()) {
     react {
         jsRootDir = file("../src/")
         libraryName = "rncwebview"
-        codegenJavaPackageName = "com.reactnativecommunity.webview"
+        codegenJavaPackageName = "com.carefrees.webview"
         codegenDir = new File(codegenPath)
         reactNativeDir = new File(reactNativePath)
     }

@@ -1,4 +1,4 @@
-package com.reactnativecommunity.webview;
+package com.carefrees.webview;
 
 class RNCBasicAuthCredential {
     String username;

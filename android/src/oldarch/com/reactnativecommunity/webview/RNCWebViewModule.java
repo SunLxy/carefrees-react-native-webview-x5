@@ -1,4 +1,4 @@
-package com.reactnativecommunity.webview;
+package com.carefrees.webview;
 
 import android.app.DownloadManager;
 import android.net.Uri;

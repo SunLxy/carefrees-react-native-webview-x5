@@ -1,4 +1,4 @@
-package com.reactnativecommunity.webview;
+package com.carefrees.webview;
 
 import android.annotation.TargetApi;
 import android.graphics.Bitmap;
@@ -25,12 +25,12 @@ import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.uimanager.ThemedReactContext;
 import com.facebook.react.uimanager.UIManagerHelper;
-import com.reactnativecommunity.webview.events.TopHttpErrorEvent;
-import com.reactnativecommunity.webview.events.TopLoadingErrorEvent;
-import com.reactnativecommunity.webview.events.TopLoadingFinishEvent;
-import com.reactnativecommunity.webview.events.TopLoadingStartEvent;
-import com.reactnativecommunity.webview.events.TopRenderProcessGoneEvent;
-import com.reactnativecommunity.webview.events.TopShouldStartLoadWithRequestEvent;
+import com.carefrees.webview.events.TopHttpErrorEvent;
+import com.carefrees.webview.events.TopLoadingErrorEvent;
+import com.carefrees.webview.events.TopLoadingFinishEvent;
+import com.carefrees.webview.events.TopLoadingStartEvent;
+import com.carefrees.webview.events.TopRenderProcessGoneEvent;
+import com.carefrees.webview.events.TopShouldStartLoadWithRequestEvent;
 
 import java.util.concurrent.atomic.AtomicReference;
 

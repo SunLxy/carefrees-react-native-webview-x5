@@ -1,4 +1,4 @@
-package com.reactnativecommunity.webview.events
+package com.carefrees.webview.events
 
 import com.facebook.react.bridge.WritableMap
 import com.facebook.react.uimanager.events.Event

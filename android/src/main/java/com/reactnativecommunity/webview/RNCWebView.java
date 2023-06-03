@@ -1,4 +1,4 @@
-package com.reactnativecommunity.webview;
+package com.carefrees.webview;
 
 import androidx.annotation.Nullable;
 
@@ -31,8 +31,8 @@ import com.facebook.react.uimanager.events.EventDispatcher;
 import com.facebook.react.views.scroll.OnScrollDispatchHelper;
 import com.facebook.react.views.scroll.ScrollEvent;
 import com.facebook.react.views.scroll.ScrollEventType;
-import com.reactnativecommunity.webview.events.TopLoadingProgressEvent;
-import com.reactnativecommunity.webview.events.TopMessageEvent;
+import com.carefrees.webview.events.TopLoadingProgressEvent;
+import com.carefrees.webview.events.TopMessageEvent;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;

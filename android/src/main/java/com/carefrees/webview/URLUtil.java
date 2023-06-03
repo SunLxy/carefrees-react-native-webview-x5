@@ -28,7 +28,7 @@
 package com.carefrees.webview;
 
 import android.net.Uri;
-import android.webkit.MimeTypeMap;
+import com.tencent.smtt.sdk.MimeTypeMap;
 import androidx.annotation.Nullable;
 
 import java.io.UnsupportedEncodingException;

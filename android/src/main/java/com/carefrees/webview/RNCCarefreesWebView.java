@@ -10,10 +10,10 @@ import android.util.AttributeSet;
 
 import android.view.MotionEvent;
 import android.view.View;
-import android.webkit.JavascriptInterface;
-import android.webkit.WebChromeClient;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
+import com.tencent.smtt.sdk.JavascriptInterface;
+import com.tencent.smtt.sdk.WebChromeClient;
+import com.tencent.smtt.sdk.WebView;
+import com.tencent.smtt.sdk.WebViewClient;
 
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.CatalystInstance;
@@ -45,7 +45,7 @@ public class RNCCarefreesWebView extends WebView implements LifecycleEventListen
     protected static final String JAVASCRIPT_INTERFACE = "ReactNativeWebView";
 
     /**
-     * android.webkit.WebChromeClient fundamentally does not support JS injection into frames other
+     * com.tencent.smtt.sdk.WebChromeClient fundamentally does not support JS injection into frames other
      * than the main frame, so these two properties are mostly here just for parity with iOS & macOS.
      */
     protected boolean injectedJavaScriptForMainFrameOnly = true;

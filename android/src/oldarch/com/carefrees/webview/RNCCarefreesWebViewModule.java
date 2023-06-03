@@ -4,7 +4,7 @@ import android.app.DownloadManager;
 import android.net.Uri;
 
 import androidx.annotation.NonNull;
-import android.webkit.ValueCallback;
+import com.tencent.smtt.sdk.ValueCallback;
 
 import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;

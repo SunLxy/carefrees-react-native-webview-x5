@@ -78,6 +78,8 @@ dependencies {
     implementation 'com.facebook.react:react-native:+'
     implementation "org.jetbrains.kotlin:kotlin-stdlib:${safeExtGet('kotlinVersion')}"
     implementation "androidx.webkit:webkit:${safeExtGet('webkitVersion')}"
+    api 'com.tencent.tbs:tbssdk:44286'
+
 }
 
 if (isNewArchitectureEnabled()) {

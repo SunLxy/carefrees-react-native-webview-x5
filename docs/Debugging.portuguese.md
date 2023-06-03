@@ -71,7 +71,7 @@ Além disso, se você não vir seu dispositivo no menu Desenvolver e tiver inici
 1. Você precisará fazer a seguinte alteração em `MainApplication.java` para habilitar a depuração de conteúdo da web:
 
 ```java
-  import android.webkit.WebView;
+  import com.tencent.smtt.sdk.WebView;
 
   @Override
   public void onCreate() {

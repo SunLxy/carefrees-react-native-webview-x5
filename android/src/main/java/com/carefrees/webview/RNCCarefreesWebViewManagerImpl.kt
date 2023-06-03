@@ -11,10 +11,11 @@ import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
-import android.webkit.CookieManager
-import android.webkit.DownloadListener
-import android.webkit.WebSettings
-import android.webkit.WebView
+import com.tencent.smtt.sdk.CookieManager
+import com.tencent.smtt.sdk.DownloadListener
+import com.tencent.smtt.sdk.WebSettings
+import com.tencent.smtt.sdk.WebView
+import com.tencent.smtt.export.external.interfaces.IX5WebChromeClient.CustomViewCallback;
 import androidx.webkit.WebSettingsCompat
 import androidx.webkit.WebViewFeature
 import com.facebook.react.bridge.ReadableArray
@@ -565,7 +566,7 @@ class RNCCarefreesWebViewManagerImpl {
             // PREFER_WEB_THEME_OVER_USER_AGENT_DARKENING:  checks for the "color-scheme" <meta> tag.
             // If present, it uses media queries. If absent, it applies user-agent (automatic)
             // More information about Force Dark Strategy can be found here:
-            // https://developer.android.com/reference/androidx/webkit/WebSettingsCompat#setForceDarkStrategy(android.webkit.WebSettings)
+            // https://developer.android.com/reference/androidx/webkit/WebSettingsCompat#setForceDarkStrategy(com.tencent.smtt.sdk.WebSettings)
             if (enabled && WebViewFeature.isFeatureSupported(WebViewFeature.FORCE_DARK_STRATEGY)) {
                 WebSettingsCompat.setForceDarkStrategy(
                     view.settings,

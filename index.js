@@ -1,4 +1,4 @@
-import WebView from './lib/WebView';
+import WebView, { initTBS, getInitX5sdkInfo } from './lib/WebView';
 
-export { WebView };
+export { WebView, initTBS, getInitX5sdkInfo };
 export default WebView;

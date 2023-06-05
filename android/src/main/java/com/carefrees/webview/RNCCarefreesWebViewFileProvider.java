@@ -2,6 +2,7 @@ package com.carefrees.webview;
 
 import androidx.core.content.FileProvider;
 
+//<!-- android:name="com.tencent.smtt.utils.FileProvider" -->
 /**
  * Providing a custom {@code FileProvider} prevents manifest {@code <provider>} name collisions.
  * <p>

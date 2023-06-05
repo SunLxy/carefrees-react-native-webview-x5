@@ -10,7 +10,8 @@ import android.util.AttributeSet;
 
 import android.view.MotionEvent;
 import android.view.View;
-import com.tencent.smtt.sdk.JavascriptInterface;
+import android.webkit.JavascriptInterface;
+// import com.tencent.smtt.sdk.JavascriptInterface;
 import com.tencent.smtt.sdk.WebChromeClient;
 import com.tencent.smtt.sdk.WebView;
 import com.tencent.smtt.sdk.WebViewClient;

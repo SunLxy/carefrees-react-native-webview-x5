@@ -7,12 +7,16 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Message;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.tencent.smtt.export.external.TbsCoreSettings;
 import com.tencent.smtt.export.external.interfaces.ConsoleMessage;
 import com.tencent.smtt.export.external.interfaces.GeolocationPermissionsCallback;
 import com.tencent.smtt.export.external.interfaces.PermissionRequest;
+import com.tencent.smtt.export.external.interfaces.IX5WebChromeClient;
 import com.tencent.smtt.sdk.ValueCallback;
 import com.tencent.smtt.sdk.WebChromeClient;
 import com.tencent.smtt.sdk.WebView;
@@ -51,7 +55,7 @@ public class RNCWebChromeClient extends WebChromeClient implements LifecycleEven
     protected RNCCarefreesWebView mWebView;
 
     protected View mVideoView;
-    protected WebChromeClient.CustomViewCallback mCustomViewCallback;
+    protected IX5WebChromeClient.CustomViewCallback mCustomViewCallback;
 
     /*
      * - Permissions -
@@ -65,7 +69,7 @@ public class RNCWebChromeClient extends WebChromeClient implements LifecycleEven
     protected List<String> grantedPermissions;
 
     // Webview geolocation permission callback
-    protected GeolocationPermissions.Callback geolocationPermissionCallback;
+    protected GeolocationPermissionsCallback geolocationPermissionCallback;
     // Webview geolocation permission origin callback
     protected String geolocationPermissionOrigin;
 
@@ -81,14 +85,13 @@ public class RNCWebChromeClient extends WebChromeClient implements LifecycleEven
         this.mWebView = webView;
     }
 
+
     @Override
     public boolean onCreateWindow(WebView view, boolean isDialog, boolean isUserGesture, Message resultMsg) {
-
         final WebView newWebView = new WebView(view.getContext());
         final WebView.WebViewTransport transport = (WebView.WebViewTransport) resultMsg.obj;
         transport.setWebView(newWebView);
         resultMsg.sendToTarget();
-
         return true;
     }
 
@@ -120,59 +123,59 @@ public class RNCWebChromeClient extends WebChromeClient implements LifecycleEven
         UIManagerHelper.getEventDispatcherForReactTag(this.mWebView.getThemedReactContext(), reactTag).dispatchEvent(new TopLoadingProgressEvent(reactTag, event));
     }
 
+     @Override
+     public void onPermissionRequest(final PermissionRequest request) {
+
+         grantedPermissions = new ArrayList<>();
+
+         ArrayList<String> requestedAndroidPermissions = new ArrayList<>();
+         for (String requestedResource : request.getResources()) {
+             String androidPermission = null;
+
+             if (requestedResource.equals(PermissionRequest.RESOURCE_AUDIO_CAPTURE)) {
+                 androidPermission = Manifest.permission.RECORD_AUDIO;
+             } else if (requestedResource.equals(PermissionRequest.RESOURCE_VIDEO_CAPTURE)) {
+                 androidPermission = Manifest.permission.CAMERA;
+             } else if(requestedResource.equals(PermissionRequest.RESOURCE_PROTECTED_MEDIA_ID)) {
+                 if (mAllowsProtectedMedia) {
+                   grantedPermissions.add(requestedResource);
+                 } else {
+                   /**
+                    * Legacy handling (Kept in case it was working under some conditions (given Android version or something))
+                    *
+                    * Try to ask user to grant permission using Activity.requestPermissions
+                    *
+                    * Find more details here: https://github.com/react-native-webview/react-native-webview/pull/2732
+                    */
+                   androidPermission = PermissionRequest.RESOURCE_PROTECTED_MEDIA_ID;
+                 }            }
+             // TODO: RESOURCE_MIDI_SYSEX, RESOURCE_PROTECTED_MEDIA_ID.
+             if (androidPermission != null) {
+                 if (ContextCompat.checkSelfPermission(this.mWebView.getThemedReactContext(), androidPermission) == PackageManager.PERMISSION_GRANTED) {
+                     grantedPermissions.add(requestedResource);
+                 } else {
+                     requestedAndroidPermissions.add(androidPermission);
+                 }
+             }
+         }
+
+         // If all the permissions are already granted, send the response to the WebView synchronously
+         if (requestedAndroidPermissions.isEmpty()) {
+             request.grant(grantedPermissions.toArray(new String[0]));
+             grantedPermissions = null;
+             return;
+         }
+
+         // Otherwise, ask to Android System for native permissions asynchronously
+
+         this.permissionRequest = request;
+
+         requestPermissions(requestedAndroidPermissions);
+     }
+
+
     @Override
-    public void onPermissionRequest(final PermissionRequest request) {
-
-        grantedPermissions = new ArrayList<>();
-
-        ArrayList<String> requestedAndroidPermissions = new ArrayList<>();
-        for (String requestedResource : request.getResources()) {
-            String androidPermission = null;
-
-            if (requestedResource.equals(PermissionRequest.RESOURCE_AUDIO_CAPTURE)) {
-                androidPermission = Manifest.permission.RECORD_AUDIO;
-            } else if (requestedResource.equals(PermissionRequest.RESOURCE_VIDEO_CAPTURE)) {
-                androidPermission = Manifest.permission.CAMERA;
-            } else if(requestedResource.equals(PermissionRequest.RESOURCE_PROTECTED_MEDIA_ID)) {
-                if (mAllowsProtectedMedia) {
-                  grantedPermissions.add(requestedResource);
-                } else {
-                  /**
-                   * Legacy handling (Kept in case it was working under some conditions (given Android version or something))
-                   *
-                   * Try to ask user to grant permission using Activity.requestPermissions
-                   *
-                   * Find more details here: https://github.com/react-native-webview/react-native-webview/pull/2732
-                   */
-                  androidPermission = PermissionRequest.RESOURCE_PROTECTED_MEDIA_ID;
-                }            }
-            // TODO: RESOURCE_MIDI_SYSEX, RESOURCE_PROTECTED_MEDIA_ID.
-            if (androidPermission != null) {
-                if (ContextCompat.checkSelfPermission(this.mWebView.getThemedReactContext(), androidPermission) == PackageManager.PERMISSION_GRANTED) {
-                    grantedPermissions.add(requestedResource);
-                } else {
-                    requestedAndroidPermissions.add(androidPermission);
-                }
-            }
-        }
-
-        // If all the permissions are already granted, send the response to the WebView synchronously
-        if (requestedAndroidPermissions.isEmpty()) {
-            request.grant(grantedPermissions.toArray(new String[0]));
-            grantedPermissions = null;
-            return;
-        }
-
-        // Otherwise, ask to Android System for native permissions asynchronously
-
-        this.permissionRequest = request;
-
-        requestPermissions(requestedAndroidPermissions);
-    }
-
-
-    @Override
-    public void onGeolocationPermissionsShowPrompt(String origin, GeolocationPermissions.Callback callback) {
+    public void onGeolocationPermissionsShowPrompt(String origin, GeolocationPermissionsCallback callback) {
 
         if (ContextCompat.checkSelfPermission(this.mWebView.getThemedReactContext(), Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
@@ -294,15 +297,15 @@ public class RNCWebChromeClient extends WebChromeClient implements LifecycleEven
         return true;
     };
 
-    protected void openFileChooser(ValueCallback<Uri> filePathCallback, String acceptType) {
+    public void openFileChooser(ValueCallback<Uri> filePathCallback, String acceptType) {
       this.mWebView.getThemedReactContext().getNativeModule(RNCCarefreesWebViewModule.class).startPhotoPickerIntent(filePathCallback, acceptType);
     }
 
-    protected void openFileChooser(ValueCallback<Uri> filePathCallback) {
+    public void openFileChooser(ValueCallback<Uri> filePathCallback) {
       this.mWebView.getThemedReactContext().getNativeModule(RNCCarefreesWebViewModule.class).startPhotoPickerIntent(filePathCallback, "");
     }
 
-    protected void openFileChooser(ValueCallback<Uri> filePathCallback, String acceptType, String capture) {
+    public void openFileChooser(ValueCallback<Uri> filePathCallback, String acceptType, String capture) {
       this.mWebView.getThemedReactContext().getNativeModule(RNCCarefreesWebViewModule.class).startPhotoPickerIntent(filePathCallback, acceptType);
     }
 

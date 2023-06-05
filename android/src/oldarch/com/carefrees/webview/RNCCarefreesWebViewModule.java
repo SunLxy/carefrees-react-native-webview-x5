@@ -2,8 +2,13 @@ package com.carefrees.webview;
 
 import android.app.DownloadManager;
 import android.net.Uri;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
+
+import com.tencent.smtt.export.external.TbsCoreSettings;
+import com.tencent.smtt.sdk.QbSdk;
+import com.tencent.smtt.sdk.TbsListener;
 import com.tencent.smtt.sdk.ValueCallback;
 
 import com.facebook.react.bridge.Promise;
@@ -12,11 +17,13 @@ import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.module.annotations.ReactModule;
 
+import java.util.HashMap;
+
 @ReactModule(name = RNCCarefreesWebViewModuleImpl.NAME)
 public class RNCCarefreesWebViewModule extends ReactContextBaseJavaModule {
     final private RNCCarefreesWebViewModuleImpl mRNCCarefreesWebViewModuleImpl;
 
-    public RNCCarefreesWebViewModule(ReactApplicationContext reactContext) {
+  public RNCCarefreesWebViewModule(ReactApplicationContext reactContext) {
         super(reactContext);
         mRNCCarefreesWebViewModuleImpl = new RNCCarefreesWebViewModuleImpl(reactContext);
     }

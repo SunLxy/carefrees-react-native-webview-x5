@@ -4,7 +4,7 @@
 #import "RNCCarefreesWebViewImpl.h"
 #import "RNCCarefreesWebViewDecisionManager.h"
 #ifdef RCT_NEW_ARCH_ENABLED
-#import "RNCCarefreesWebViewSpec/RNCCarefreesWebViewSpec.h"
+#import "RNCWebViewSpec/RNCWebViewSpec.h"
 #endif
 
 #if TARGET_OS_OSX
@@ -25,13 +25,13 @@ RCT_ENUM_CONVERTER(WKContentMode, (@{
 #endif
 
 #if defined(__IPHONE_OS_VERSION_MAX_ALLOWED) && __IPHONE_OS_VERSION_MAX_ALLOWED >= 150000 /* iOS 15 */
-RCT_ENUM_CONVERTER(RNCCarefreesWebViewPermissionGrantType, (@{
-  @"grantIfSameHostElsePrompt": @(RNCCarefreesWebViewPermissionGrantType_GrantIfSameHost_ElsePrompt),
-  @"grantIfSameHostElseDeny": @(RNCCarefreesWebViewPermissionGrantType_GrantIfSameHost_ElseDeny),
-  @"deny": @(RNCCarefreesWebViewPermissionGrantType_Deny),
-  @"grant": @(RNCCarefreesWebViewPermissionGrantType_Grant),
-  @"prompt": @(RNCCarefreesWebViewPermissionGrantType_Prompt),
-}), RNCCarefreesWebViewPermissionGrantType_Prompt, integerValue)
+RCT_ENUM_CONVERTER(RNCWebViewPermissionGrantType, (@{
+  @"grantIfSameHostElsePrompt": @(RNCWebViewPermissionGrantType_GrantIfSameHost_ElsePrompt),
+  @"grantIfSameHostElseDeny": @(RNCWebViewPermissionGrantType_GrantIfSameHost_ElseDeny),
+  @"deny": @(RNCWebViewPermissionGrantType_Deny),
+  @"grant": @(RNCWebViewPermissionGrantType_Grant),
+  @"prompt": @(RNCWebViewPermissionGrantType_Prompt),
+}), RNCWebViewPermissionGrantType_Prompt, integerValue)
 #endif
 @end
 
@@ -41,7 +41,7 @@ RCT_ENUM_CONVERTER(RNCCarefreesWebViewPermissionGrantType, (@{
     BOOL _shouldStartLoad;
 }
 
-RCT_EXPORT_MODULE(RNCCarefreesWebView)
+RCT_EXPORT_MODULE(RNCarefreesWebView)
 
 - (RNCView *)view
 {
@@ -104,7 +104,7 @@ RCT_EXPORT_VIEW_PROPERTY(textInteractionEnabled, BOOL)
 #endif
 
 #if defined(__IPHONE_OS_VERSION_MAX_ALLOWED) && __IPHONE_OS_VERSION_MAX_ALLOWED >= 150000 /* iOS 15 */
-RCT_EXPORT_VIEW_PROPERTY(mediaCapturePermissionGrantType, RNCCarefreesWebViewPermissionGrantType)
+RCT_EXPORT_VIEW_PROPERTY(mediaCapturePermissionGrantType, RNCWebViewPermissionGrantType)
 #endif
 
 /**
@@ -176,7 +176,7 @@ RCT_EXPORT_METHOD(name:(nonnull NSNumber *)reactTag)                            
 [self.bridge.uiManager addUIBlock:^(__unused RCTUIManager *uiManager, NSDictionary<NSNumber *, BASE_VIEW_PER_OS() *> *viewRegistry) {   \
     RNCCarefreesWebViewImpl *view = (RNCCarefreesWebViewImpl *)viewRegistry[reactTag];                                                                    \
     if (![view isKindOfClass:[RNCCarefreesWebViewImpl class]]) {                                                                                 \
-      RCTLogError(@"Invalid view returned from registry, expecting RNCCarefreesWebView, got: %@", view);                                         \
+      RCTLogError(@"Invalid view returned from registry, expecting RNCarefreesWebView, got: %@", view);                                         \
     } else {                                                                                                                            \
       [view name];                                                                                                                      \
     }                                                                                                                                   \
@@ -188,7 +188,7 @@ RCT_EXPORT_METHOD(name:(nonnull NSNumber *)reactTag in_param)                   
 [self.bridge.uiManager addUIBlock:^(__unused RCTUIManager *uiManager, NSDictionary<NSNumber *, BASE_VIEW_PER_OS() *> *viewRegistry) {   \
     RNCCarefreesWebViewImpl *view = (RNCCarefreesWebViewImpl *)viewRegistry[reactTag];                                                                    \
     if (![view isKindOfClass:[RNCCarefreesWebViewImpl class]]) {                                                                                 \
-      RCTLogError(@"Invalid view returned from registry, expecting RNCCarefreesWebView, got: %@", view);                                         \
+      RCTLogError(@"Invalid view returned from registry, expecting RNCarefreesWebView, got: %@", view);                                         \
     } else {                                                                                                                            \
       [view name:out_param];                                                                                                            \
     }                                                                                                                                   \
@@ -215,7 +215,7 @@ RCT_EXPORT_METHOD(shouldStartLoadWithLockIdentifier:(BOOL)shouldStart
 - (std::shared_ptr<facebook::react::TurboModule>)getTurboModule:
     (const facebook::react::ObjCTurboModule::InitParams &)params
 {
-    return std::make_shared<facebook::react::NativeRNCCarefreesWebViewSpecJSI>(params);
+    return std::make_shared<facebook::react::NativeRNCWebViewSpecJSI>(params);
 }
 #endif
 

@@ -16,19 +16,19 @@
 
 #import "RNCCarefreesWebViewDecisionManager.h"
 
-typedef enum RNCCarefreesWebViewPermissionGrantType : NSUInteger {
-  RNCCarefreesWebViewPermissionGrantType_GrantIfSameHost_ElsePrompt,
-  RNCCarefreesWebViewPermissionGrantType_GrantIfSameHost_ElseDeny,
-  RNCCarefreesWebViewPermissionGrantType_Deny,
-  RNCCarefreesWebViewPermissionGrantType_Grant,
-  RNCCarefreesWebViewPermissionGrantType_Prompt
-} RNCCarefreesWebViewPermissionGrantType;
+typedef enum RNCWebViewPermissionGrantType : NSUInteger {
+  RNCWebViewPermissionGrantType_GrantIfSameHost_ElsePrompt,
+  RNCWebViewPermissionGrantType_GrantIfSameHost_ElseDeny,
+  RNCWebViewPermissionGrantType_Deny,
+  RNCWebViewPermissionGrantType_Grant,
+  RNCWebViewPermissionGrantType_Prompt
+} RNCWebViewPermissionGrantType;
 
 @class RNCCarefreesWebViewImpl;
 
 NS_ASSUME_NONNULL_BEGIN
 
-@protocol RNCCarefreesWebViewDelegate <NSObject>
+@protocol RNCWebViewDelegate <NSObject>
 
 - (BOOL)webView:(RNCCarefreesWebViewImpl *)webView
 shouldStartLoadForRequest:(NSMutableDictionary<NSString *, id> *)request
@@ -57,7 +57,7 @@ shouldStartLoadForRequest:(NSMutableDictionary<NSString *, id> *)request
 @property (nonatomic, copy) RCTDirectEventBlock onContentProcessDidTerminate;
 
 
-@property (nonatomic, weak) id<RNCCarefreesWebViewDelegate> _Nullable delegate;
+@property (nonatomic, weak) id<RNCWebViewDelegate> _Nullable delegate;
 @property (nonatomic, copy) NSDictionary * _Nullable source;
 @property (nonatomic, assign) BOOL messagingEnabled;
 @property (nonatomic, copy) NSString * _Nullable injectedJavaScript;
@@ -116,7 +116,7 @@ shouldStartLoadForRequest:(NSMutableDictionary<NSString *, id> *)request
 #endif
 
 #if defined(__IPHONE_OS_VERSION_MAX_ALLOWED) && __IPHONE_OS_VERSION_MAX_ALLOWED >= 150000 /* iOS 15 */
-@property (nonatomic, assign) RNCCarefreesWebViewPermissionGrantType mediaCapturePermissionGrantType;
+@property (nonatomic, assign) RNCWebViewPermissionGrantType mediaCapturePermissionGrantType;
 #endif
 
 #if !TARGET_OS_OSX

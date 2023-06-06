@@ -53,9 +53,9 @@ NSString *const CUSTOM_SELECTOR = @"_CUSTOM_SELECTOR_";
 @end
 @implementation RNCWKWebView
 - (void)scrollWheel:(NSEvent *)theEvent {
-  RNCCarefreesWebViewImpl *RNCCarefreesWebView = (RNCCarefreesWebViewImpl *)[self superview];
-  RCTAssert([RNCCarefreesWebView isKindOfClass:[RNCCarefreesWebView class]], @"superview must be an RNCCarefreesWebViewImpl");
-  if (![RNCCarefreesWebView scrollEnabled]) {
+  RNCCarefreesWebViewImpl *RNCarefreesWebView = (RNCCarefreesWebViewImpl *)[self superview];
+  RCTAssert([RNCarefreesWebView isKindOfClass:[RNCarefreesWebView class]], @"superview must be an RNCCarefreesWebViewImpl");
+  if (![RNCarefreesWebView scrollEnabled]) {
     [[self nextResponder] scrollWheel:theEvent];
     return;
   }
@@ -140,7 +140,7 @@ RCTAutoInsetsProtocol>
 #endif
     _enableApplePay = NO;
 #if defined(__IPHONE_OS_VERSION_MAX_ALLOWED) && __IPHONE_OS_VERSION_MAX_ALLOWED >= 150000 /* iOS 15 */
-    _mediaCapturePermissionGrantType = RNCCarefreesWebViewPermissionGrantType_Prompt;
+    _mediaCapturePermissionGrantType = RNCWebViewPermissionGrantType_Prompt;
 #endif
   }
 
@@ -1106,16 +1106,16 @@ RCTAutoInsetsProtocol>
                         initiatedByFrame:(WKFrameInfo *)frame
                                     type:(WKMediaCaptureType)type
                          decisionHandler:(void (^)(WKPermissionDecision decision))decisionHandler {
-  if (_mediaCapturePermissionGrantType == RNCCarefreesWebViewPermissionGrantType_GrantIfSameHost_ElsePrompt || _mediaCapturePermissionGrantType == RNCCarefreesWebViewPermissionGrantType_GrantIfSameHost_ElseDeny) {
+  if (_mediaCapturePermissionGrantType == RNCWebViewPermissionGrantType_GrantIfSameHost_ElsePrompt || _mediaCapturePermissionGrantType == RNCWebViewPermissionGrantType_GrantIfSameHost_ElseDeny) {
     if ([origin.host isEqualToString:webView.URL.host]) {
       decisionHandler(WKPermissionDecisionGrant);
     } else {
-      WKPermissionDecision decision = _mediaCapturePermissionGrantType == RNCCarefreesWebViewPermissionGrantType_GrantIfSameHost_ElsePrompt ? WKPermissionDecisionPrompt : WKPermissionDecisionDeny;
+      WKPermissionDecision decision = _mediaCapturePermissionGrantType == RNCWebViewPermissionGrantType_GrantIfSameHost_ElsePrompt ? WKPermissionDecisionPrompt : WKPermissionDecisionDeny;
       decisionHandler(decision);
     }
-  } else if (_mediaCapturePermissionGrantType == RNCCarefreesWebViewPermissionGrantType_Deny) {
+  } else if (_mediaCapturePermissionGrantType == RNCWebViewPermissionGrantType_Deny) {
     decisionHandler(WKPermissionDecisionDeny);
-  } else if (_mediaCapturePermissionGrantType == RNCCarefreesWebViewPermissionGrantType_Grant) {
+  } else if (_mediaCapturePermissionGrantType == RNCWebViewPermissionGrantType_Grant) {
     decisionHandler(WKPermissionDecisionGrant);
   } else {
     decisionHandler(WKPermissionDecisionPrompt);

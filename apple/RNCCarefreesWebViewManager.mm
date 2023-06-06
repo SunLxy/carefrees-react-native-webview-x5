@@ -41,7 +41,7 @@ RCT_ENUM_CONVERTER(RNCWebViewPermissionGrantType, (@{
     BOOL _shouldStartLoad;
 }
 
-RCT_EXPORT_MODULE(RNCarefreesWebView)
+RCT_EXPORT_MODULE(RNCCarefreesWebView)
 
 - (RNCView *)view
 {
@@ -176,7 +176,7 @@ RCT_EXPORT_METHOD(name:(nonnull NSNumber *)reactTag)                            
 [self.bridge.uiManager addUIBlock:^(__unused RCTUIManager *uiManager, NSDictionary<NSNumber *, BASE_VIEW_PER_OS() *> *viewRegistry) {   \
     RNCCarefreesWebViewImpl *view = (RNCCarefreesWebViewImpl *)viewRegistry[reactTag];                                                                    \
     if (![view isKindOfClass:[RNCCarefreesWebViewImpl class]]) {                                                                                 \
-      RCTLogError(@"Invalid view returned from registry, expecting RNCarefreesWebView, got: %@", view);                                         \
+      RCTLogError(@"Invalid view returned from registry, expecting RNCCarefreesWebView, got: %@", view);                                         \
     } else {                                                                                                                            \
       [view name];                                                                                                                      \
     }                                                                                                                                   \
@@ -188,7 +188,7 @@ RCT_EXPORT_METHOD(name:(nonnull NSNumber *)reactTag in_param)                   
 [self.bridge.uiManager addUIBlock:^(__unused RCTUIManager *uiManager, NSDictionary<NSNumber *, BASE_VIEW_PER_OS() *> *viewRegistry) {   \
     RNCCarefreesWebViewImpl *view = (RNCCarefreesWebViewImpl *)viewRegistry[reactTag];                                                                    \
     if (![view isKindOfClass:[RNCCarefreesWebViewImpl class]]) {                                                                                 \
-      RCTLogError(@"Invalid view returned from registry, expecting RNCarefreesWebView, got: %@", view);                                         \
+      RCTLogError(@"Invalid view returned from registry, expecting RNCCarefreesWebView, got: %@", view);                                         \
     } else {                                                                                                                            \
       [view name:out_param];                                                                                                            \
     }                                                                                                                                   \

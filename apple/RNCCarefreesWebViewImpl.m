@@ -53,9 +53,9 @@ NSString *const CUSTOM_SELECTOR = @"_CUSTOM_SELECTOR_";
 @end
 @implementation RNCWKWebView
 - (void)scrollWheel:(NSEvent *)theEvent {
-  RNCCarefreesWebViewImpl *RNCarefreesWebView = (RNCCarefreesWebViewImpl *)[self superview];
-  RCTAssert([RNCarefreesWebView isKindOfClass:[RNCarefreesWebView class]], @"superview must be an RNCCarefreesWebViewImpl");
-  if (![RNCarefreesWebView scrollEnabled]) {
+  RNCCarefreesWebViewImpl *RNCCarefreesWebView = (RNCCarefreesWebViewImpl *)[self superview];
+  RCTAssert([RNCCarefreesWebView isKindOfClass:[RNCCarefreesWebView class]], @"superview must be an RNCCarefreesWebViewImpl");
+  if (![RNCCarefreesWebView scrollEnabled]) {
     [[self nextResponder] scrollWheel:theEvent];
     return;
   }

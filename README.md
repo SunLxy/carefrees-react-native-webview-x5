@@ -1,5 +1,7 @@
 # React Native WebView
 
+需要配合[carefree-webview-tbs-utils](https://github.com/SunLxy/carefree-webview-tbs-utils)使用，进行下载x5内核
+
 ![star this repo](https://img.shields.io/github/stars/react-native-webview/react-native-webview?style=flat-square)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 [![NPM Version](https://img.shields.io/npm/v/react-native-webview.svg?style=flat-square)](https://www.npmjs.com/package/react-native-webview)
@@ -45,12 +47,12 @@ This project follows [semantic versioning](https://semver.org/). We do not hesit
 
 ### Usage
 
-Import the `WebView` component from `react-native-webview` and use it like so:
+Import the `WebView` component from `carefrees-react-native-webview-x5` and use it like so:
 
 ```tsx
 import React, { Component } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { WebView } from 'react-native-webview';
+import { WebView } from 'carefrees-react-native-webview-x5';
 
 // ...
 const MyWebComponent = () => {
